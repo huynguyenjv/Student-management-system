@@ -1,0 +1,1095 @@
+JFDML JFormDesigner: "8.0.3.0.246" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp headerPanel::t:::p, comp tabbedPane1::l:p:1480:p}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp headerPanel:::p::p, space :::p, comp tabbedPane1:::::p, space :::p}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"resizable": false
+			"$locationPolicy": 1
+			"maximumSize": new java.awt.Dimension( -2147483647, 2147483647 )
+			"title": "Student Management System"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq t {space :::x, comp headerTextPanel:::::p, space :::p}}"
+				"$verticalGroup": "par l {seq l {space :::p, comp headerTextPanel:::::p, space ::12:x}}"
+			} ) {
+				name: "headerPanel"
+				"background": new java.awt.Color( 255, 255, 255, 255 )
+				"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {comp headerText::::1458:x, space :::p}}"
+					"$verticalGroup": "par l {seq t {space ::24:x, comp headerText:::p:37:p, space :p:19:p}}"
+				} ) {
+					name: "headerTextPanel"
+					"background": sfield java.awt.Color lightGray
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "headerTextPanelMousePressed", true ) )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "headerText"
+						"text": "STUDENT MANAGEMENT SYSTEM"
+						"foreground": new java.awt.Color( 0, 0, 0, 255 )
+						"horizontalAlignment": 0
+						"font": new java.awt.Font( "Times New Roman", 3, 35 )
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						addEvent( new FormEvent( "java.awt.event.MouseMotionListener", "mouseDragged", "headerTextMouseDragged", true ) )
+					} )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				"background": sfield java.awt.Color darkGray
+				"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :::p, comp Information:::p::p, space :p:12:p, comp content_panel_student:::::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp Information:::::x, comp content_panel_student:::::p}, space :::p}}"
+				} ) {
+					name: "student"
+					"background": &Color0 new java.awt.Color( 204, 204, 204, 255 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par t:::p {comp image_panel_student:::::x, seq {par l {par l {par t {par l {par t {comp nameStudent_label_student:::p:103:p, comp mssv_labe_studentl:::p:103:p, comp dayofbirth_label_student::t:p:103:p}, comp phoneNumber_label_student::t:p:103:p}, comp nameFather_label_student:::p:103:p, comp nameMother_label_student:::p:103:p, comp country_label_student:::p:103:p, comp address_label_student:::p:103:p}, comp email_label_student::t:p:103:p}, comp gender_label_student::l:p:103:p}, space s:::p, par l:::p {comp address_textField_student::::305:x, comp mssv_textField_student::::305:x, comp nameStudent_textField_student::::305:x, comp email_textField_student::l::305:x, comp nameFather_textField_student::l::305:x, comp country_textField_student::l::305:x, comp nameMother_textField_student::l::305:x, comp phoneNumber_textField_student::t::305:x, comp gender_comboBox_student::l:p:92:p, comp dayofBirth_jdatechooser_student::l::305:x}}}, space ::39:x}}"
+						"$verticalGroup": "par l {seq l {space :p:18:p, par b {comp mssv_textField_student::b:p::p, comp mssv_labe_studentl::b:p::p}, space s:::p, par b {comp nameStudent_textField_student::b:p::p, comp nameStudent_label_student::b:p::p}, space s:::p, par l {comp dayofbirth_label_student:::p::p, comp dayofBirth_jdatechooser_student:::p::p}, space s:::p, par b {comp gender_comboBox_student::b:p::p, comp gender_label_student::b:p::p}, space s:::p, par b {comp email_textField_student::b:p::p, comp email_label_student::b:p::p}, space s:::p, par b {comp phoneNumber_label_student::b:p::p, comp phoneNumber_textField_student::b:p::p}, space s:::p, par b {comp nameFather_textField_student::b:p::p, comp nameFather_label_student::b:p::p}, space s:::p, par b {comp nameMother_textField_student::b:p::p, comp nameMother_label_student::b:p::p}, space s:::p, par b {comp country_textField_student::b:p::p, comp country_label_student::b:p::p}, space s:::p, par b {comp address_textField_student::b:p::p, comp address_label_student::b:p::p}, space s:::p, comp image_panel_student:::::x, space :::p}}"
+					} ) {
+						name: "Information"
+						"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+						"background": &Color1 new java.awt.Color( 255, 255, 255, 255 )
+						"foreground": &Color2 new java.awt.Color( 204, 204, 204, 255 )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "mssv_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
+							"toolTipText": "Enter number here !"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "nameStudent_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "gender_comboBox_student"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "None"
+								addElement( "None" )
+								addElement( "Nam" )
+								addElement( "Nu" )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "email_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "phoneNumber_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "nameFather_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "nameMother_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "country_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "address_textField_student"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "mssv_labe_studentl"
+							"text": "MSSV : "
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": &Color3 new java.awt.Color( 0, 0, 0, 255 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "nameStudent_label_student"
+							"text": "Họ và tên : "
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "dayofbirth_label_student"
+							"text": "Ngày sinh : "
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "gender_label_student"
+							"text": "Giới tính :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "email_label_student"
+							"text": "Email :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "phoneNumber_label_student"
+							"text": "Số điện thoại :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "nameFather_label_student"
+							"text": "Họ và tên Ba :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "nameMother_label_student"
+							"text": "Họ và tên Mẹ :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "country_label_student"
+							"text": "Quê quán :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "address_label_student"
+							"text": "Chỗ ở hiện tại :"
+							"font": new java.awt.Font( "Times New Roman", 1, 14 )
+							"foreground": #Color3
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :p:23:p, comp browseBtn_student:::p:94:p, space ::46:x, comp showImage_panel_student:::p::p, space :::p}}"
+							"$verticalGroup": "par l {seq t {space :::x, comp browseBtn_student:::p:36:p, space :p:39:p}, seq l {space :::p, comp showImage_panel_student:::::x, space :::p}}"
+						} ) {
+							name: "image_panel_student"
+							"border": new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "browseBtn_student"
+								"text": "Browse"
+								"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {comp image::t::249:x}"
+								"$verticalGroup": "par l {comp image::l:::x}"
+							} ) {
+								name: "showImage_panel_student"
+								"border": new javax.swing.border.LineBorder( sfield java.awt.Color black, 1, false )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "image"
+								} )
+							} )
+						} )
+						add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+							name: "dayofBirth_jdatechooser_student"
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par l {comp table_panel_student:::p::p, comp searchStudentPanel_student:::p::p}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp searchStudentPanel_student:::p::p, space :::p, comp table_panel_student:::::x, space :p:12:p}}"
+					} ) {
+						name: "content_panel_student"
+						"border": &LineBorder1 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :::p, comp search_label_student:::p:151:p, space ::74:x, comp search_student_texField:::p:412:p, space :p:39:p, comp searchBtn_student:::p:111:p, space s:::p, comp refreshBtn_student:::p:111:p, space :p:23:p}}"
+							"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp search_label_student::b:p:39:p, comp search_student_texField::b:p:39:p, comp searchBtn_student::b:p:41:p, comp refreshBtn_student::b:p:41:p}, space ::32:x}}"
+						} ) {
+							name: "searchStudentPanel_student"
+							"border": &LineBorder2 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "search_student_texField"
+								"font": new java.awt.Font( "Times New Roman", 0, 20 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "search_label_student"
+								"text": "Tìm kiếm :"
+								"font": &Font0 new java.awt.Font( "Times New Roman", 1, 20 )
+								"horizontalAlignment": 0
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchBtn_student"
+								"text": "Search"
+								"font": &Font1 new java.awt.Font( "Times New Roman", 1, 14 )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "refreshBtn_student"
+								"text": "Refresh"
+								"font": &Font2 new java.awt.Font( "Times New Roman", 1, 14 )
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :p:40:p, par t {comp btnGroup_Student:::p::p, comp scrollPane1:::p:869:p}, space :p:36:p}}"
+							"$verticalGroup": "par l {seq t {space ::13:x, comp scrollPane1:::p:363:p, space :::p, comp btnGroup_Student:::p::p, space :::p}}"
+						} ) {
+							name: "table_panel_student"
+							"border": &LineBorder3 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane1"
+								add( new FormComponent( "javax.swing.JTable" ) {
+									name: "student_table"
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+									}, new java.util.Vector {
+										add( "MSSV" )
+										add( "Họ và tên" )
+										add( "Ngày sinh" )
+										add( "Giới tính" )
+										add( "Email" )
+										add( "SĐT" )
+										add( "Họ và tên Ba" )
+										add( "Họ và tên Mẹ" )
+										add( "Quê quán" )
+										add( "Chỗ ở hiên tại" )
+										add( "Image Path" )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( new com.jformdesigner.model.SwingTableColumn( null, 0, 100, 0, true ) )
+										add( new com.jformdesigner.model.SwingTableColumn( null, 0, 90, 0, true ) )
+									} )
+									"background": sfield java.awt.Color lightGray
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:29:p, comp insertBtn_student:::p:98:p, space :p:38:p, comp updateBtn_student:::p:98:p, space :p:47:p, comp removeBtn_student:::p:98:p, space :p:54:p, comp printBtn_student:::p:98:p, space ::42:x, comp clearBtn_student:::p:98:p, space :p:40:p, comp logoutBtn_student:::p:98:p, space :p:23:p}}"
+								"$verticalGroup": "par l {seq t {space ::16:x, par b {comp insertBtn_student::b:p::p, comp updateBtn_student::b:p::p, comp removeBtn_student::b:p::p, comp printBtn_student::b:p::p, comp clearBtn_student::b:p::p, comp logoutBtn_student::b:p::p}, space :p:21:p}}"
+							} ) {
+								name: "btnGroup_Student"
+								"border": &LineBorder4 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "insertBtn_student"
+									"text": "Thêm mới"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "insertBtn_student", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "updateBtn_student"
+									"text": "Cập nhật"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "removeBtn_student"
+									"text": "Xoá"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "printBtn_student"
+									"text": "Print"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "clearBtn_student"
+									"text": "Clear"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearBtn_student", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "logoutBtn_student"
+									"text": "Logout"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "logoutBtn_student", true ) )
+								} )
+							} )
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Student"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :::p, comp Information_Course_Panel:::::x, space :p:12:p, comp content_panel_course:::::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp Information_Course_Panel:::::x, seq {space :0:0:x, comp content_panel_course:::::p}}, space :::p}}"
+				} ) {
+					name: "Course"
+					"background": #Color0
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq {space :::p, par l {comp search_Infro_panel:::::x, seq {par l:::p {seq {comp course5_label_course:::p:85:p, space :::x, comp course5_comboBox_course:::p:247:p}, seq l {comp course4_label_course:::p:85:p, space :::x, comp course4_comboBox_course:::p:247:p}, seq l {comp course3_label_course:::p:85:p, space :::x, comp course3_comboBox_course:::p:247:p}, seq l {comp course2_label_course:::p:85:p, space :::x, comp course2_comboBox_course:::p:247:p}, seq l {comp course1_label_course:::p:85:p, space :::x, comp course1_comboBox_course:::p:247:p}, seq l {comp id_label_course:::p:85:p, space :p:49:p, comp id_textField_course:::p:247:p}, seq t {par l {comp mssv_label_course::l:p:85:p, comp semester_label_course::l:p:85:p}, space :49::x, par l:::p {comp mssv_textField_course::::247:x, comp semester_comboBox_course::::247:x}}}, space :0:114:x}}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp search_Infro_panel:::p::p, space u:::p, par b {comp id_label_course::b:p:25:p, comp id_textField_course::b:p::p}, space s:::p, par b {comp mssv_label_course::b:p:25:p, comp mssv_textField_course::b:p::p}, space s:::p, par b {comp semester_label_course::b:p:25:p, comp semester_comboBox_course::b:p::p}, space s:::p, par b {comp course1_label_course::b:p:25:p, comp course1_comboBox_course::b:p::p}, space s:::p, par b {comp course2_label_course::b:p:25:p, comp course2_comboBox_course::b:p::p}, space s:::p, par b {comp course3_label_course::b:p:25:p, comp course3_comboBox_course::b:p::p}, space s:::p, par b {comp course4_label_course::b:p:25:p, comp course4_comboBox_course::b:p::p}, space s:::p, par b {comp course5_label_course::b:p:25:p, comp course5_comboBox_course::b:p::p}, space :::x}}"
+					} ) {
+						name: "Information_Course_Panel"
+						"border": #LineBorder0
+						"background": #Color1
+						"foreground": #Color2
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq {space :::p, par l {comp mssv_label_SearchInf:::p:127:p, seq {space :p:25:p, comp mssv_textField_searchInf:::p:297:p, space s:::p, comp searchInfBtn:::p:91:p}}, space ::50:x}}"
+							"$verticalGroup": "par l {seq l {space :::p, comp mssv_label_SearchInf:::p:25:p, space u:::p, par l {seq {comp searchInfBtn:::::x, space :p:8:p}, seq {comp mssv_textField_searchInf::::35:x, space :::p}}}}"
+						} ) {
+							name: "search_Infro_panel"
+							"border": &LineBorder5 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "mssv_label_SearchInf"
+								"text": "MSSV"
+								"font": &Font3 new java.awt.Font( "Times New Roman", 1, 14 )
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "mssv_textField_searchInf"
+								"font": new java.awt.Font( "Times New Roman", 0, 20 )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchInfBtn"
+								"text": "Search"
+								"font": &Font4 new java.awt.Font( "Times New Roman", 1, 14 )
+							} )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "id_label_course"
+							"text": "ID : "
+							"font": &Font5 new java.awt.Font( "Times New Roman", 1, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "mssv_label_course"
+							"text": "MSSV : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "semester_label_course"
+							"text": "Học kì : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course1_label_course"
+							"text": "Môn học 1 : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course2_label_course"
+							"text": "Môn học 2 : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course3_label_course"
+							"text": "Môn học 3 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course4_label_course"
+							"text": "Môn học 4 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course5_label_course"
+							"text": "Môn học 5 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "id_textField_course"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "mssv_textField_course"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "semester_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Học kì 1 "
+								addElement( "Học kì 1 " )
+								addElement( "Học Kì 2 " )
+								addElement( "Học kì 3" )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "course1_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "C Programming "
+								addElement( "C Programming " )
+								addElement( "C++ Programming" )
+								addElement( "Advanced Mathematics II " )
+								addElement( "Data Structures & Algorithms" )
+								addElement( "Python" )
+								addElement( "Java" )
+								addElement( "Comprehensive Practice I " )
+								addElement( "Engineering Mathematics" )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "course2_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Principle of computer component "
+								addElement( "Principle of computer component " )
+								addElement( "Report Writing " )
+								addElement( "Web Programming" )
+								addElement( "Java OOP" )
+								addElement( "Design User Interface " )
+								addElement( "JSP " )
+								addElement( "Software Testing and Inspection " )
+								addElement( "Mobile App Development" )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "course3_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Advanced Mathematics I "
+								addElement( "Advanced Mathematics I " )
+								addElement( "Database " )
+								addElement( "Software Testing " )
+								addElement( "Linux " )
+								addElement( "Data Science " )
+								addElement( "Big Data I" )
+								addElement( "Big Data II " )
+								addElement( "Comprehensive Practice II " )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "course4_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Chinese Traditional Culture "
+								addElement( "Chinese Traditional Culture " )
+								addElement( "Computer Network" )
+								addElement( "Overview of China " )
+								addElement( "Principle of Operating System" )
+								addElement( "Computer Science " )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "course5_comboBox_course"
+							"model": new javax.swing.DefaultComboBoxModel {
+								selectedItem: "Cloud Computing "
+								addElement( "Cloud Computing " )
+								addElement( "Algorithms Analysis and Design " )
+								addElement( "Machine Learning " )
+								addElement( "Deep Learning " )
+								addElement( "HSK Testing Tutoring " )
+								addElement( "IT Project Management " )
+								addElement( "Artificial Intelligence II " )
+								addElement( "Graduation Thesis" )
+							}
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par l:::p {comp search_panel_course:::::x, comp table_panel_course:::::x}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp search_panel_course:::p::p, space :::p, comp table_panel_course:::::x, space :p:12:p}}"
+					} ) {
+						name: "content_panel_course"
+						"border": #LineBorder1
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :::p, comp search_label_course:::p:151:p, space :::x, comp search_textField_course:::p:412:p, space :p:39:p, comp searchBtn_course:::p:111:p, space s:::p, comp refreshBtn_course:::p:111:p, space :p:23:p}}"
+							"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp search_label_course::b:p:39:p, comp search_textField_course::b:p:39:p, comp searchBtn_course::b:p:41:p, comp refreshBtn_course::b:p:41:p}, space ::32:x}}"
+						} ) {
+							name: "search_panel_course"
+							"border": #LineBorder2
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "search_textField_course"
+								"font": new java.awt.Font( "Times New Roman", 0, 20 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "search_label_course"
+								"text": "Tìm kiếm :"
+								"font": #Font0
+								"horizontalAlignment": 0
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchBtn_course"
+								"text": "Search"
+								"font": #Font1
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "refreshBtn_course"
+								"text": "Refresh"
+								"font": #Font2
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :p:40:p, par l:::p {comp scrollPane2:::::x, comp btnGroup_course:::::p}, space :p:36:p}}"
+							"$verticalGroup": "par l {seq t {space :p:13:p, comp scrollPane2:::p:363:p, space :::p, comp btnGroup_course:::p::p, space :::p}}"
+							"honorsVisibility": false
+						} ) {
+							name: "table_panel_course"
+							"border": #LineBorder3
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane2"
+								add( new FormComponent( "javax.swing.JTable" ) {
+									name: "table2"
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+									}, new java.util.Vector {
+										add( "ID" )
+										add( "MSSV" )
+										add( "Học kì" )
+										add( "Môn học 1 " )
+										add( "Môn học 2" )
+										add( "Môn học 3" )
+										add( "Môn học 4" )
+										add( "Môn học 5" )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									} )
+									"background": sfield java.awt.Color lightGray
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:66:p, comp saveBtn_course:::p:98:p, space ::107:x, comp printBtn_course:::p:98:p, space :p:109:p, comp clearBtn_course:::p:98:p, space :p:86:p, comp logoutBtn_course:::p:98:p, space :p:65:p}}"
+								"$verticalGroup": "par l {seq t {space ::16:x, par b {comp saveBtn_course::b:p::p, comp logoutBtn_course::b:p::p, comp printBtn_course::b:p::p, comp clearBtn_course::b:p::p}, space :p:21:p}}"
+								"honorsVisibility": false
+							} ) {
+								name: "btnGroup_course"
+								"border": #LineBorder4
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "saveBtn_course"
+									"text": "Save"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "printBtn_course"
+									"text": "Print"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "clearBtn_course"
+									"text": "Clear"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "logoutBtn_course"
+									"text": "Logout"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "logoutBtn_course", true ) )
+								} )
+							} )
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Course"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :::p, comp information_score:::::x, space :p:12:p, comp contentPanel_score:::::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp information_score:::::x, seq {space :0:0:x, comp contentPanel_score:::::p}}, space :::p}}"
+				} ) {
+					name: "Score"
+					"background": #Color0
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l:::p {seq l {comp id_label_score:::p:85:p, space :p:49:p, comp id_texField_score:::p:247:p}, seq t {par l {comp mssv_label_score::l:p:85:p, comp semester_label_score::l:p:85:p, comp course1_label_score::l:p:85:p, comp course2_label_score::l:p:85:p, comp course3_label_score::l:p:85:p, comp course4_label_score::l:p:85:p, comp course5_label_score::l:p:85:p}, space :::x, par l:::p {comp mssv_textField_score::::247:x, comp semester_textField_score::l::247:x, seq l {comp course1_textField_score:::p:145:p, space :::x, comp score1_textField_score:::p::p}, seq {par l {seq {par l {comp course4_textField_score::l:::x, seq {par l {comp course2_textField_score::l:p:145:p, comp course3_textField_score:::p:145:p}, space :0:0:x}}, space ::34:x}, seq {comp course5_textField_score:::p:145:p, space ::34:x}}, par l {comp score2_textField_score::t:p::p, comp score3_textField_score::t:p::p, comp score4_textField_score::t:p::p, comp score5_textField_score::t:p::p}}}}}, space :0:114:x}, comp searchInf_score:::::x}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp searchInf_score:::p::p, space :::p, par b {comp id_label_score::b:p:25:p, comp id_texField_score::b:p::p}, space s:::p, par b {comp mssv_label_score::b:p:25:p, comp mssv_textField_score::b:p::p}, space s:::p, par b {comp semester_label_score::b:p:25:p, comp semester_textField_score::b:p::p}, space s:::p, par b {comp course1_label_score::b:p:25:p, comp course1_textField_score::b:p::p, comp score1_textField_score::b:p::p}, space s:::p, par l {seq l {par b {comp score2_textField_score::b:p::p, comp course2_textField_score::b:p::p}, space s:::p, par b {comp course3_textField_score::b:p::p, comp score3_textField_score::b:p::p}}, seq l {comp course2_label_score:::p:25:p, space s:::p, comp course3_label_score:::p:25:p}}, space s:::p, par l {comp course4_label_score::l:p:25:p, comp score4_textField_score:::p::p, comp course4_textField_score:::p::p}, par l {seq {space :p:17:p, comp course5_label_score:::p:25:p}, seq l {space s:::p, par l {comp score5_textField_score:::p::p, comp course5_textField_score:::p::p}}}, space ::103:x}}"
+					} ) {
+						name: "information_score"
+						"border": #LineBorder0
+						"background": #Color1
+						"foreground": #Color2
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :::p, par l {seq {comp mssvSearchInf_label_score:::p:127:p, space :::x}, seq l {par l {par l {comp semesterSearchInf_label_score::l:p:127:p, seq t {space :p:25:p, comp semesterSearchInf_textField_score:::p:297:p}}, seq l {space :p:25:p, comp mssvSearchInf_textField_score:::p:297:p}}, space ::46:x, comp searchBtn_searchInf_score:::p:91:p, space :p:22:p}}}}"
+							"$verticalGroup": "par l {seq t {space :::p, comp mssvSearchInf_label_score:::p:24:p, par l {seq {space :p:7:p, comp mssvSearchInf_textField_score:::p:26:p, space u:::p, comp semesterSearchInf_label_score:::p:25:p, space :::p, comp semesterSearchInf_textField_score:::p::p, space ::12:x}, seq t {space ::18:x, comp searchBtn_searchInf_score:::p:63:p, space :p:33:p}}}}"
+						} ) {
+							name: "searchInf_score"
+							"border": #LineBorder5
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "mssvSearchInf_label_score"
+								"text": "MSSV"
+								"font": #Font3
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "mssvSearchInf_textField_score"
+								"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchBtn_searchInf_score"
+								"text": "Search"
+								"font": #Font4
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "semesterSearchInf_label_score"
+								"text": "Học kì "
+								"font": #Font3
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "semesterSearchInf_textField_score"
+								"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							} )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "id_label_score"
+							"text": "ID : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "mssv_label_score"
+							"text": "MSSV : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "semester_label_score"
+							"text": "Học kì : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course1_label_score"
+							"text": "Môn học 1 : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course2_label_score"
+							"text": "Môn học 2 : "
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course3_label_score"
+							"text": "Môn học 3 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course4_label_score"
+							"text": "Môn học 4 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "course5_label_score"
+							"text": "Môn học 5 :"
+							"font": #Font5
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "id_texField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "mssv_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "semester_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "course1_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "course2_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "course3_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "course4_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "course5_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "score1_textField_score"
+							"text": "0.0"
+							"horizontalAlignment": 0
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "score2_textField_score"
+							"text": "0.0"
+							"horizontalAlignment": 0
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "score3_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"text": "0.0"
+							"horizontalAlignment": 0
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "score4_textField_score"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"text": "0.0"
+							"horizontalAlignment": 0
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "score5_textField_score"
+							"text": "0.0"
+							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"horizontalAlignment": 0
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par l:::p {comp searchPanel_score:::::x, comp tablePanel_score:::::x}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp searchPanel_score:::p::p, space :::p, comp tablePanel_score:::::x, space :p:12:p}}"
+					} ) {
+						name: "contentPanel_score"
+						"border": #LineBorder1
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq t {space :::p, comp search_label_score:::p:151:p, space ::38:x, comp search_textField_score:::p:412:p, space :p:39:p, comp searchBtn_score:::p:111:p, space s:::p, comp refreshBtn_score:::p:111:p, space :p:23:p}}"
+							"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp search_label_score::b:p:39:p, comp search_textField_score::b:p:39:p, comp searchBtn_score::b:p:41:p, comp refreshBtn_score::b:p:41:p}, space ::32:x}}"
+						} ) {
+							name: "searchPanel_score"
+							"border": #LineBorder2
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "search_textField_score"
+								"font": new java.awt.Font( "Times New Roman", 0, 20 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "search_label_score"
+								"text": "Tìm kiếm :"
+								"font": #Font0
+								"horizontalAlignment": 0
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchBtn_score"
+								"text": "Search"
+								"font": #Font1
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "refreshBtn_score"
+								"text": "Refresh"
+								"font": #Font2
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :p:18:p, par l:::p {comp scrollPane3::::872:x, comp btnGroup_score:::::x}, space :p:19:p}}"
+							"$verticalGroup": "par l {seq t {space :::p, comp scrollPane3:::p:363:p, space :::p, comp btnGroup_score:::p::p, space :::p}}"
+							"honorsVisibility": false
+						} ) {
+							name: "tablePanel_score"
+							"border": #LineBorder3
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane3"
+								add( new FormComponent( "javax.swing.JTable" ) {
+									name: "table3"
+									"model": &SwingTableModel0 new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+										add( new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+									}, new java.util.Vector {
+										add( "ID" )
+										add( "MSSV" )
+										add( "Học kì" )
+										add( "Môn học 1 " )
+										add( "Điểm 1" )
+										add( "Môn học 2" )
+										add( "Điểm 2" )
+										add( "Môn học 3" )
+										add( "Điểm 3" )
+										add( "Môn học 4" )
+										add( "Điểm 4" )
+										add( "Môn học 5" )
+										add( "Điểm 5" )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									} )
+									"background": sfield java.awt.Color lightGray
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:64:p, comp saveBtn_score:::p:98:p, space ::67:x, comp updateBtn_score:::p:98:p, space :p:67:p, comp printBtn_score:::p:98:p, space :p:63:p, comp clearBtn_score:::p:98:p, space :p:62:p, comp logoutBtn_score:::p:98:p, space :p:51:p}}"
+								"$verticalGroup": "par l {seq t {space ::16:x, par b {comp logoutBtn_score::b:p::p, comp clearBtn_score::b:p::p, comp printBtn_score::b:p::p, comp updateBtn_score::b:p::p, comp saveBtn_score::b:p::p}, space :p:21:p}}"
+								"honorsVisibility": false
+							} ) {
+								name: "btnGroup_score"
+								"border": #LineBorder4
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "updateBtn_score"
+									"text": "Update"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "printBtn_score"
+									"text": "Print"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "clearBtn_score"
+									"text": "Clear"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "logoutBtn_score"
+									"text": "Logout"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "logoutBtn_score", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "saveBtn_score"
+									"text": "Save"
+									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								} )
+							} )
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Score"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :::p, comp information_marksSheet:::::x, space :p:12:p, comp content_panel_marksSheet:::::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp information_marksSheet:::::x, comp content_panel_marksSheet:::::x}, space :::p}}"
+				} ) {
+					name: "Marks_sheet"
+					"background": #Color0
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq {space :::p, par l {comp mssv_searchInf_panel:::::x, comp result_infoMarksSheet_panel::l:::x}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :p:199:p, comp mssv_searchInf_panel:::p::p, space :::x, comp result_infoMarksSheet_panel:::p::p, space :::p}}"
+					} ) {
+						name: "information_marksSheet"
+						"border": #LineBorder0
+						"background": #Color1
+						"foreground": #Color2
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :::p, comp mssv_searchInf_label_marksSheet:::p:127:p, space ::354:x}, seq l {space :p:32:p, comp mssv_searchInf_textField_marksSheet:::p:297:p, space :::x, comp searchBtn_searchInf_marksSheet:::p:91:p, space :p:16:p}}"
+							"$verticalGroup": "par l {seq t {space :p:12:p, comp mssv_searchInf_label_marksSheet:::p:24:p, space u:::p, par b {comp mssv_searchInf_textField_marksSheet::b:p:26:p, comp searchBtn_searchInf_marksSheet::b:p::p}, space ::25:x}}"
+						} ) {
+							name: "mssv_searchInf_panel"
+							"border": #LineBorder5
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "mssv_searchInf_label_marksSheet"
+								"text": "MSSV"
+								"font": #Font3
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "mssv_searchInf_textField_marksSheet"
+								"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchBtn_searchInf_marksSheet"
+								"text": "Search"
+								"font": #Font4
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :::p, comp result_marksSheet::::475:x, space :::p}}"
+							"$verticalGroup": "par l {comp result_marksSheet::l::110:x}"
+						} ) {
+							name: "result_infoMarksSheet_panel"
+							"border": new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
+							"font": new java.awt.Font( "Times New Roman", 1, 30 )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "result_marksSheet"
+								"font": new java.awt.Font( "Times New Roman", 0, 30 )
+								"text": "CGPA : 0.0"
+								"horizontalAlignment": 0
+							} )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp panel26:::p::p, space :::x}}"
+						"$verticalGroup": "par l {seq {space :::p, comp panel26:::::x, space :p:12:p}}"
+					} ) {
+						name: "content_panel_marksSheet"
+						"border": #LineBorder1
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :::p, par l {comp panel27:::::x, comp scrollPane4:::p:897:p}, space :::p}}"
+							"$verticalGroup": "par l {seq t {space :p:14:p, comp scrollPane4:::p:456:p, space s:::p, comp panel27:::p::p, space :p:16:p}}"
+							"honorsVisibility": false
+						} ) {
+							name: "panel26"
+							"border": #LineBorder3
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane4"
+								add( new FormComponent( "javax.swing.JTable" ) {
+									name: "table4"
+									"model": #SwingTableModel0
+									"background": sfield java.awt.Color lightGray
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:64:p, comp saveBtn_marksSheet:::p:98:p, space :::x, comp updateBtn_marksSheet:::p:98:p, space :p:67:p, comp printBtn_marksSheet:::p:98:p, space :p:63:p, comp clearBtn_marksSheet:::p:98:p, space :p:62:p, comp logoutBtn_marksSheet:::p:98:p, space :p:51:p}}"
+								"$verticalGroup": "par l {seq t {space ::16:x, par b {comp logoutBtn_marksSheet::b:p::p, comp clearBtn_marksSheet::b:p::p, comp printBtn_marksSheet::b:p::p, comp updateBtn_marksSheet::b:p::p, comp saveBtn_marksSheet::b:p::p}, space :p:21:p}}"
+								"honorsVisibility": false
+							} ) {
+								name: "panel27"
+								"border": #LineBorder4
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "updateBtn_marksSheet"
+									"text": "Update"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "printBtn_marksSheet"
+									"text": "Print"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "clearBtn_marksSheet"
+									"text": "Clear"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "logoutBtn_marksSheet"
+									"text": "Logout"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "logoutBtn_marksSheet", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "saveBtn_marksSheet"
+									"text": "Save"
+								} )
+							} )
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Marks Sheet"
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1490, 810 )
+		} )
+	}
+}
