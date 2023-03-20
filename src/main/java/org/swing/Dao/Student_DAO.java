@@ -26,4 +26,8 @@ public class Student_DAO {
         }
         return id + 1 ;
     }
+
+    public void insertStudent(){
+
+    }
 }
