@@ -6,7 +6,10 @@ package org.swing.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.print.PrinterException;
 import java.io.File;
+import java.text.MessageFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
@@ -16,6 +19,7 @@ import javax.swing.table.*;
 import com.toedter.calendar.*;
 import org.jdesktop.swingx.*;
 import org.swing.Dao.Student_DAO;
+import org.swing.model.Student;
 
 /**
  * @author ADMIN
@@ -25,6 +29,8 @@ public class Home extends JFrame {
     int xx , xy;
     private String imagePath;
     private DefaultTableModel model;
+    private int rowIndex;
+
     public Home() {
         initComponents();
         init();
@@ -36,6 +42,7 @@ public class Home extends JFrame {
     }
 
     private void tableViewStudent(){
+        studentDao.getStudentValue(student_table,"");
         model = (DefaultTableModel)  student_table.getModel();
         student_table.setRowHeight(30);
         student_table.setShowGrid(true);
@@ -58,6 +65,8 @@ public class Home extends JFrame {
         student_table.clearSelection();
         imagePath = null;
     }
+
+
 
     public boolean isEmptyStudent(){
         if(nameStudent_textField_student.getText().isEmpty()){
@@ -150,35 +159,7 @@ public class Home extends JFrame {
 
     }
 
-    private void thisWindowOpened(WindowEvent e) {
-        // TODO add your code here
-    }
-
-    private void clearBtn_student(ActionEvent e) {
-        clearStudent();
-    }
-
-    private void insertBtn_student(ActionEvent e) {
-        if(isEmptyStudent()){
-            int id = studentDao.getMax();
-            String name = nameStudent_textField_student.getText();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String date = dateFormat.format(dayofBirth_jdatechooser_student.getDate());
-            String gender =gender_comboBox_student.getSelectedItem().toString();
-            String email = email_textField_student.getText();
-            String phoneNumber = phoneNumber_textField_student.getText();
-            String fatherName = nameFather_textField_student.getText();
-            String motherName = nameMother_textField_student.getText();
-            String country = country_textField_student.getText();
-            String address = address_textField_student.getText();
-        }
-    }
-
-    private void phoneNumber_textField_studentKeyTyped(KeyEvent e) {
-        if(!Character.isDigit(e.getKeyChar())){
-            e.consume();
-        }
-    }
+    //                                     STUDENT TAB
 
     private void browseBtn_student(ActionEvent e) {
         JFileChooser file = new JFileChooser();
@@ -194,9 +175,8 @@ public class Home extends JFrame {
         }else{
             JOptionPane.showMessageDialog(this,"No image selected");
         }
-
-
     }
+
     private ImageIcon imageAdjust(String path,byte[] pic){
         ImageIcon myImage = null;
         if(path != null){
@@ -210,18 +190,179 @@ public class Home extends JFrame {
         ImageIcon icon = new ImageIcon(newImage);
         return icon;
     }
-//    private void thisWindowOpened(WindowEvent e) {
-//        try {
-//            for(double i = 0.1 ; i <= 1.0 ; i += 0.1){
-//                String s = i +"";
-//                float f = Float.valueOf(s);
-//                this.setOpacity(f);
-//                Thread.sleep(40);
-//            }
-//        } catch (InterruptedException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
+
+    private void insertBtn_student(ActionEvent e) {
+        if(isEmptyStudent()){
+            if(!studentDao.isEmailExist(email_textField_student.getText())
+            || !studentDao.isPhoneNumberExist(phoneNumber_textField_student.getText())){
+                int id = studentDao.getMax();
+                String name = nameStudent_textField_student.getText();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = dateFormat.format(dayofBirth_jdatechooser_student.getDate());
+                String gender =gender_comboBox_student.getSelectedItem().toString();
+                String email = email_textField_student.getText();
+                String phoneNumber = phoneNumber_textField_student.getText();
+                String fatherName = nameFather_textField_student.getText();
+                String motherName = nameMother_textField_student.getText();
+                String country = country_textField_student.getText();
+                String address = address_textField_student.getText();
+
+                Student student = new Student(id,name,date,gender,email,phoneNumber,fatherName,motherName,country,address,imagePath);
+
+                studentDao.insertStudent(student);
+                clearStudent();
+                student_table.setModel(new DefaultTableModel(null, new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+                studentDao.getStudentValue(student_table,"");
+            }else{
+                if(studentDao.isEmailExist(email_textField_student.getText())){
+                    JOptionPane.showMessageDialog(this,"This email is already exists");
+                }
+                else if(studentDao.isPhoneNumberExist(phoneNumber_textField_student.getText())){
+                    JOptionPane.showMessageDialog(this,"This phone number is already exists");
+                }
+            }
+        }
+    }
+
+    private void updateBtn_student(ActionEvent e) {
+        if(isEmptyStudent()){
+            int  id = Integer.parseInt(mssv_textField_student.getText());
+            if(studentDao.isIdExist(id)){
+                if(!check()){
+                    String name = nameStudent_textField_student.getText();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = dateFormat.format(dayofBirth_jdatechooser_student.getDate());
+                    String gender =gender_comboBox_student.getSelectedItem().toString();
+                    String email = email_textField_student.getText();
+                    String phoneNumber = phoneNumber_textField_student.getText();
+                    String fatherName = nameFather_textField_student.getText();
+                    String motherName = nameMother_textField_student.getText();
+                    String country = country_textField_student.getText();
+                    String address = address_textField_student.getText();
+
+                    Student student = new Student(id,name,date,gender,email,phoneNumber,fatherName,motherName,country,address,imagePath);
+                    studentDao.updateStudent(student);
+                    clearStudent();
+                    student_table.setModel(new DefaultTableModel(null, new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                            "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+                    studentDao.getStudentValue(student_table,"");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,"Student id doesn't exist");
+            }
+
+
+        }
+    }
+
+    private void removeBtn_student(ActionEvent e) {
+        if(isEmptyStudent()){
+            String id = mssv_textField_student.getText();
+
+            Student student = new Student();
+            student.setId(Integer.parseInt(id));
+
+            studentDao.removeStudent(student);
+            clearStudent();
+            student_table.setModel(new DefaultTableModel(null, new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                    "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+            studentDao.getStudentValue(student_table,"");
+        }
+    }
+
+    private void printBtn_student(ActionEvent e)  {
+
+        try {
+            MessageFormat header = new MessageFormat("Student information");
+            MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+            student_table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (PrinterException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void searchBtn_student(ActionEvent e) {
+        if(search_textField_student.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter student id");
+        }else{
+            student_table.setModel( new DefaultTableModel(null , new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                    "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+            studentDao.getStudentValue(student_table,search_textField_student.getText());
+        }
+    }
+
+    private void refreshBtn_student(ActionEvent e) {
+        search_textField_student.setText(null);
+        student_table.setModel( new DefaultTableModel(null , new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+        studentDao.getStudentValue(student_table,"");
+    }
+
+    private void clearBtn_student(ActionEvent e) {
+        clearStudent();
+    }
+
+    private void phoneNumber_textField_studentKeyTyped(KeyEvent e) {
+        if(!Character.isDigit(e.getKeyChar())){
+            e.consume();
+        }
+    }
+
+    private void student_tableMouseClicked(MouseEvent e) {
+        model = (DefaultTableModel) student_table.getModel();
+        rowIndex = student_table.getSelectedRow();
+        mssv_textField_student.setText(model.getValueAt(rowIndex,0).toString());
+        nameStudent_textField_student.setText(model.getValueAt(rowIndex,1).toString());
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(rowIndex,2).toString());
+            dayofBirth_jdatechooser_student.setDate(date);
+        } catch (ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+        String gender = model.getValueAt(rowIndex,3).toString();
+        if(gender.equals("Nam")){
+            gender_comboBox_student.setSelectedIndex(1);
+        }else if(gender.equals("Nu")){
+            gender_comboBox_student.setSelectedIndex(2);
+        }
+        email_textField_student.setText(model.getValueAt(rowIndex,4).toString());
+        phoneNumber_textField_student.setText(model.getValueAt(rowIndex,5).toString());
+        nameFather_textField_student.setText(model.getValueAt(rowIndex,6).toString());
+        nameMother_textField_student.setText(model.getValueAt(rowIndex,7).toString());
+        country_textField_student.setText(model.getValueAt(rowIndex,8).toString());
+        address_textField_student.setText(model.getValueAt(rowIndex,9).toString());
+        String path = model.getValueAt(rowIndex,10).toString();
+        imagePath = path;
+        image.setIcon(imageAdjust(path,null)); // get image path and called imageAdjust method convert path to ImageIcon ..
+    }
+
+    public boolean check(){
+        String newEmail = email_textField_student.getText();
+        String newPhone = phoneNumber_textField_student.getText();
+        String oldEmail = model.getValueAt(rowIndex,4).toString();
+        String oldPhone = model.getValueAt(rowIndex,5).toString();
+        if(newEmail.equals(oldEmail) && newPhone.equals(oldPhone)){
+            return false;
+        }else{
+            if(!newEmail.equals(oldEmail)){
+                boolean result = studentDao.isEmailExist(newEmail);
+                if(result){
+                    JOptionPane.showMessageDialog(this,"This email is already exist");
+                }
+                return result;
+            }
+            if (!newPhone.equals(oldPhone)) {
+                boolean result = studentDao.isPhoneNumberExist(newPhone);
+                if(result){
+                    JOptionPane.showMessageDialog(this,"This phone number is already exists");
+                }
+                return result;
+            }
+        }
+        return false;
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -258,7 +399,7 @@ public class Home extends JFrame {
         dayofBirth_jdatechooser_student = new JDateChooser();
         content_panel_student = new JPanel();
         searchStudentPanel_student = new JPanel();
-        search_student_texField = new JTextField();
+        search_textField_student = new JTextField();
         search_label_student = new JLabel();
         searchBtn_student = new JButton();
         refreshBtn_student = new JButton();
@@ -382,11 +523,12 @@ public class Home extends JFrame {
         {
             headerPanel.setBackground(Color.white);
             headerPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-            headerPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-            0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-            . BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-            red) ,headerPanel. getBorder( )) ); headerPanel. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-            beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+            headerPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax
+            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,
+            12 ), java. awt. Color. red) ,headerPanel. getBorder( )) ); headerPanel. addPropertyChangeListener (new java. beans
+            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .
+            getPropertyName () )) throw new RuntimeException( ); }} );
 
             //======== headerTextPanel ========
             {
@@ -553,6 +695,7 @@ public class Home extends JFrame {
                         //---- browseBtn_student ----
                         browseBtn_student.setText("Browse");
                         browseBtn_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                        browseBtn_student.addActionListener(e -> browseBtn_student(e));
 
                         //======== showImage_panel_student ========
                         {
@@ -689,8 +832,8 @@ public class Home extends JFrame {
                     {
                         searchStudentPanel_student.setBorder(new LineBorder(Color.darkGray, 4, true));
 
-                        //---- search_student_texField ----
-                        search_student_texField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+                        //---- search_textField_student ----
+                        search_textField_student.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
                         //---- search_label_student ----
                         search_label_student.setText("T\u00ecm ki\u1ebfm :");
@@ -700,10 +843,12 @@ public class Home extends JFrame {
                         //---- searchBtn_student ----
                         searchBtn_student.setText("Search");
                         searchBtn_student.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        searchBtn_student.addActionListener(e -> searchBtn_student(e));
 
                         //---- refreshBtn_student ----
                         refreshBtn_student.setText("Refresh");
                         refreshBtn_student.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        refreshBtn_student.addActionListener(e -> refreshBtn_student(e));
 
                         GroupLayout searchStudentPanel_studentLayout = new GroupLayout(searchStudentPanel_student);
                         searchStudentPanel_student.setLayout(searchStudentPanel_studentLayout);
@@ -713,7 +858,7 @@ public class Home extends JFrame {
                                     .addContainerGap()
                                     .addComponent(search_label_student, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                                    .addComponent(search_student_texField, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(search_textField_student, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
                                     .addGap(39, 39, 39)
                                     .addComponent(searchBtn_student, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -726,7 +871,7 @@ public class Home extends JFrame {
                                     .addGap(28, 28, 28)
                                     .addGroup(searchStudentPanel_studentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(search_label_student, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(search_student_texField, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(search_textField_student, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(searchBtn_student, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(refreshBtn_student, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
                                     .addContainerGap(32, Short.MAX_VALUE))
@@ -743,8 +888,6 @@ public class Home extends JFrame {
                             //---- student_table ----
                             student_table.setModel(new DefaultTableModel(
                                 new Object[][] {
-                                    {null, null, null, null, null, null, null, null, null, null, null},
-                                    {null, null, null, null, null, null, null, null, null, null, null},
                                 },
                                 new String[] {
                                     "MSSV", "H\u1ecd v\u00e0 t\u00ean", "Ng\u00e0y sinh", "Gi\u1edbi t\u00ednh", "Email", "S\u0110T", "H\u1ecd v\u00e0 t\u00ean Ba", "H\u1ecd v\u00e0 t\u00ean M\u1eb9", "Qu\u00ea qu\u00e1n", "Ch\u1ed7 \u1edf hi\u00ean t\u1ea1i", "Image Path"
@@ -757,6 +900,12 @@ public class Home extends JFrame {
                             }
                             student_table.setBackground(Color.lightGray);
                             student_table.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            student_table.addMouseListener(new MouseAdapter() {
+                                @Override
+                                public void mouseClicked(MouseEvent e) {
+                                    student_tableMouseClicked(e);
+                                }
+                            });
                             scrollPane1.setViewportView(student_table);
                         }
 
@@ -772,14 +921,17 @@ public class Home extends JFrame {
                             //---- updateBtn_student ----
                             updateBtn_student.setText("C\u1eadp nh\u1eadt");
                             updateBtn_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            updateBtn_student.addActionListener(e -> updateBtn_student(e));
 
                             //---- removeBtn_student ----
                             removeBtn_student.setText("Xo\u00e1");
                             removeBtn_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            removeBtn_student.addActionListener(e -> removeBtn_student(e));
 
                             //---- printBtn_student ----
                             printBtn_student.setText("Print");
                             printBtn_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            printBtn_student.addActionListener(e -> printBtn_student(e));
 
                             //---- clearBtn_student ----
                             clearBtn_student.setText("Clear");
@@ -1404,7 +1556,7 @@ public class Home extends JFrame {
                                             .addComponent(semesterSearchInf_label_score, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(semesterSearchInf_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                            .addContainerGap(12, Short.MAX_VALUE))
+                                            .addContainerGap(16, Short.MAX_VALUE))
                                         .addGroup(GroupLayout.Alignment.TRAILING, searchInf_scoreLayout.createSequentialGroup()
                                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                             .addComponent(searchBtn_searchInf_score, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
@@ -1536,7 +1688,7 @@ public class Home extends JFrame {
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
                                                             .addGroup(information_scoreLayout.createSequentialGroup()
                                                                 .addComponent(course5_textField_score, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)))
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)))
                                                         .addGroup(information_scoreLayout.createParallelGroup()
                                                             .addComponent(score2_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                             .addComponent(score3_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -1596,7 +1748,7 @@ public class Home extends JFrame {
                                         .addGroup(information_scoreLayout.createParallelGroup()
                                             .addComponent(score5_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                             .addComponent(course5_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap(103, Short.MAX_VALUE))
+                                .addContainerGap(108, Short.MAX_VALUE))
                     );
                 }
 
@@ -2101,7 +2253,7 @@ public class Home extends JFrame {
     private JDateChooser dayofBirth_jdatechooser_student;
     private JPanel content_panel_student;
     private JPanel searchStudentPanel_student;
-    private JTextField search_student_texField;
+    private JTextField search_textField_student;
     private JLabel search_label_student;
     private JButton searchBtn_student;
     private JButton refreshBtn_student;

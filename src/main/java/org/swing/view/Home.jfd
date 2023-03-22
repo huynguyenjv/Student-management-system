@@ -171,6 +171,7 @@ new FormModel {
 								name: "browseBtn_student"
 								"text": "Browse"
 								"font": new java.awt.Font( "Times New Roman", 0, 14 )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "browseBtn_student", true ) )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 								"$horizontalGroup": "par l {comp image::t::249:x}"
@@ -194,13 +195,13 @@ new FormModel {
 						name: "content_panel_student"
 						"border": &LineBorder1 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-							"$horizontalGroup": "par l {seq t {space :::p, comp search_label_student:::p:151:p, space ::74:x, comp search_student_texField:::p:412:p, space :p:39:p, comp searchBtn_student:::p:111:p, space s:::p, comp refreshBtn_student:::p:111:p, space :p:23:p}}"
-							"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp search_label_student::b:p:39:p, comp search_student_texField::b:p:39:p, comp searchBtn_student::b:p:41:p, comp refreshBtn_student::b:p:41:p}, space ::32:x}}"
+							"$horizontalGroup": "par l {seq t {space :::p, comp search_label_student:::p:151:p, space ::74:x, comp search_textField_student:::p:412:p, space :p:39:p, comp searchBtn_student:::p:111:p, space s:::p, comp refreshBtn_student:::p:111:p, space :p:23:p}}"
+							"$verticalGroup": "par l {seq l {space :p:28:p, par b {comp search_label_student::b:p:39:p, comp search_textField_student::b:p:39:p, comp searchBtn_student::b:p:41:p, comp refreshBtn_student::b:p:41:p}, space ::32:x}}"
 						} ) {
 							name: "searchStudentPanel_student"
 							"border": &LineBorder2 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
 							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "search_student_texField"
+								name: "search_textField_student"
 								"font": new java.awt.Font( "Times New Roman", 0, 20 )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
@@ -213,11 +214,13 @@ new FormModel {
 								name: "searchBtn_student"
 								"text": "Search"
 								"font": &Font1 new java.awt.Font( "Times New Roman", 1, 14 )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchBtn_student", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "refreshBtn_student"
 								"text": "Refresh"
 								"font": &Font2 new java.awt.Font( "Times New Roman", 1, 14 )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "refreshBtn_student", true ) )
 							} )
 						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -230,34 +233,7 @@ new FormModel {
 								name: "scrollPane1"
 								add( new FormComponent( "javax.swing.JTable" ) {
 									name: "student_table"
-									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-									}, new java.util.Vector {
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
 										add( "MSSV" )
 										add( "Họ và tên" )
 										add( "Ngày sinh" )
@@ -308,6 +284,7 @@ new FormModel {
 									} )
 									"background": sfield java.awt.Color lightGray
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "student_tableMouseClicked", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -326,16 +303,19 @@ new FormModel {
 									name: "updateBtn_student"
 									"text": "Cập nhật"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "updateBtn_student", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "removeBtn_student"
 									"text": "Xoá"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "removeBtn_student", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "printBtn_student"
 									"text": "Print"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printBtn_student", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "clearBtn_student"
@@ -667,8 +647,8 @@ new FormModel {
 					name: "Score"
 					"background": #Color0
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l:::p {seq l {comp id_label_score:::p:85:p, space :p:49:p, comp id_texField_score:::p:247:p}, seq t {par l {comp mssv_label_score::l:p:85:p, comp semester_label_score::l:p:85:p, comp course1_label_score::l:p:85:p, comp course2_label_score::l:p:85:p, comp course3_label_score::l:p:85:p, comp course4_label_score::l:p:85:p, comp course5_label_score::l:p:85:p}, space :::x, par l:::p {comp mssv_textField_score::::247:x, comp semester_textField_score::l::247:x, seq l {comp course1_textField_score:::p:145:p, space :::x, comp score1_textField_score:::p::p}, seq {par l {seq {par l {comp course4_textField_score::l:::x, seq {par l {comp course2_textField_score::l:p:145:p, comp course3_textField_score:::p:145:p}, space :0:0:x}}, space ::34:x}, seq {comp course5_textField_score:::p:145:p, space ::34:x}}, par l {comp score2_textField_score::t:p::p, comp score3_textField_score::t:p::p, comp score4_textField_score::t:p::p, comp score5_textField_score::t:p::p}}}}}, space :0:114:x}, comp searchInf_score:::::x}, space :::p}}"
-						"$verticalGroup": "par l {seq l {space :::p, comp searchInf_score:::p::p, space :::p, par b {comp id_label_score::b:p:25:p, comp id_texField_score::b:p::p}, space s:::p, par b {comp mssv_label_score::b:p:25:p, comp mssv_textField_score::b:p::p}, space s:::p, par b {comp semester_label_score::b:p:25:p, comp semester_textField_score::b:p::p}, space s:::p, par b {comp course1_label_score::b:p:25:p, comp course1_textField_score::b:p::p, comp score1_textField_score::b:p::p}, space s:::p, par l {seq l {par b {comp score2_textField_score::b:p::p, comp course2_textField_score::b:p::p}, space s:::p, par b {comp course3_textField_score::b:p::p, comp score3_textField_score::b:p::p}}, seq l {comp course2_label_score:::p:25:p, space s:::p, comp course3_label_score:::p:25:p}}, space s:::p, par l {comp course4_label_score::l:p:25:p, comp score4_textField_score:::p::p, comp course4_textField_score:::p::p}, par l {seq {space :p:17:p, comp course5_label_score:::p:25:p}, seq l {space s:::p, par l {comp score5_textField_score:::p::p, comp course5_textField_score:::p::p}}}, space ::103:x}}"
+						"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l:::p {seq l {comp id_label_score:::p:85:p, space :p:49:p, comp id_texField_score:::p:247:p}, seq t {par l {comp mssv_label_score::l:p:85:p, comp semester_label_score::l:p:85:p, comp course1_label_score::l:p:85:p, comp course2_label_score::l:p:85:p, comp course3_label_score::l:p:85:p, comp course4_label_score::l:p:85:p, comp course5_label_score::l:p:85:p}, space :::x, par l:::p {comp mssv_textField_score::::247:x, comp semester_textField_score::l::247:x, seq l {comp course1_textField_score:::p:145:p, space :::x, comp score1_textField_score:::p::p}, seq {par l {seq {par l {comp course4_textField_score::l:::x, seq {par l {comp course2_textField_score::l:p:145:p, comp course3_textField_score:::p:145:p}, space :0:0:x}}, space ::34:x}, seq {comp course5_textField_score:::p:145:p, space ::36:x}}, par l {comp score2_textField_score::t:p::p, comp score3_textField_score::t:p::p, comp score4_textField_score::t:p::p, comp score5_textField_score::t:p::p}}}}}, space :0:114:x}, comp searchInf_score:::::x}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp searchInf_score:::p::p, space :::p, par b {comp id_label_score::b:p:25:p, comp id_texField_score::b:p::p}, space s:::p, par b {comp mssv_label_score::b:p:25:p, comp mssv_textField_score::b:p::p}, space s:::p, par b {comp semester_label_score::b:p:25:p, comp semester_textField_score::b:p::p}, space s:::p, par b {comp course1_label_score::b:p:25:p, comp course1_textField_score::b:p::p, comp score1_textField_score::b:p::p}, space s:::p, par l {seq l {par b {comp score2_textField_score::b:p::p, comp course2_textField_score::b:p::p}, space s:::p, par b {comp course3_textField_score::b:p::p, comp score3_textField_score::b:p::p}}, seq l {comp course2_label_score:::p:25:p, space s:::p, comp course3_label_score:::p:25:p}}, space s:::p, par l {comp course4_label_score::l:p:25:p, comp score4_textField_score:::p::p, comp course4_textField_score:::p::p}, par l {seq {space :p:17:p, comp course5_label_score:::p:25:p}, seq l {space s:::p, par l {comp score5_textField_score:::p::p, comp course5_textField_score:::p::p}}}, space ::108:x}}"
 					} ) {
 						name: "information_score"
 						"border": #LineBorder0
@@ -676,7 +656,7 @@ new FormModel {
 						"foreground": #Color2
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 							"$horizontalGroup": "par l {seq l {space :::p, par l {seq {comp mssvSearchInf_label_score:::p:127:p, space :::x}, seq l {par l {par l {comp semesterSearchInf_label_score::l:p:127:p, seq t {space :p:25:p, comp semesterSearchInf_textField_score:::p:297:p}}, seq l {space :p:25:p, comp mssvSearchInf_textField_score:::p:297:p}}, space ::46:x, comp searchBtn_searchInf_score:::p:91:p, space :p:22:p}}}}"
-							"$verticalGroup": "par l {seq t {space :::p, comp mssvSearchInf_label_score:::p:24:p, par l {seq {space :p:7:p, comp mssvSearchInf_textField_score:::p:26:p, space u:::p, comp semesterSearchInf_label_score:::p:25:p, space :::p, comp semesterSearchInf_textField_score:::p::p, space ::12:x}, seq t {space ::18:x, comp searchBtn_searchInf_score:::p:63:p, space :p:33:p}}}}"
+							"$verticalGroup": "par l {seq t {space :::p, comp mssvSearchInf_label_score:::p:24:p, par l {seq {space :p:7:p, comp mssvSearchInf_textField_score:::p:26:p, space u:::p, comp semesterSearchInf_label_score:::p:25:p, space :::p, comp semesterSearchInf_textField_score:::p::p, space ::16:x}, seq t {space ::18:x, comp searchBtn_searchInf_score:::p:63:p, space :p:33:p}}}}"
 						} ) {
 							name: "searchInf_score"
 							"border": #LineBorder5
