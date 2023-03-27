@@ -18,14 +18,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.*;
 import com.toedter.calendar.*;
 import org.jdesktop.swingx.*;
+import org.swing.Dao.Course_DAO;
+import org.swing.Dao.MarkSheet_DAO;
+import org.swing.Dao.Score_DAO;
 import org.swing.Dao.Student_DAO;
+import org.swing.model.Score;
 import org.swing.model.Student;
+import org.swing.model.Course;
 
 /**
  * @author ADMIN
  */
 public class Home extends JFrame {
-    Student_DAO studentDao = new Student_DAO();
+
+
+    private Student_DAO studentDao = new Student_DAO();
+    private Course_DAO courseDao = new Course_DAO();
+    private Score_DAO scoreDao = new Score_DAO();
+    private MarkSheet_DAO markSheetDao = new MarkSheet_DAO();
+
     int xx , xy;
     private String imagePath;
     private DefaultTableModel model;
@@ -35,10 +46,21 @@ public class Home extends JFrame {
         initComponents();
         init();
     }
-
     public void init(){
+        // Student
         tableViewStudent();
         mssv_textField_student.setText(String.valueOf(studentDao.getMax()));
+        gender_comboBox_student.setSelectedIndex(-1);
+
+        // Course
+        tableViewCourse();
+        id_textField_course.setText(String.valueOf(courseDao.getMax()));
+        semester_comboBox_course.setSelectedIndex(-1);
+
+        //Score
+        tableViewScore();
+        id_texField_score.setText(String.valueOf(scoreDao.getMax()));
+        
     }
 
     private void tableViewStudent(){
@@ -49,12 +71,30 @@ public class Home extends JFrame {
         student_table.setGridColor(Color.black);
         student_table.setBackground(Color.white);
     }
+    
+    private void tableViewCourse(){
+        courseDao.getCourseValue(course_table,"");
+        model = (DefaultTableModel) course_table.getModel();
+        course_table.setRowHeight(30);
+        course_table.setShowGrid(true);
+        course_table.setGridColor(Color.black);
+        course_table.setBackground(Color.white);
+    }
+
+    private void tableViewScore(){
+        scoreDao.getScoreValue(score_table,"");
+        model = (DefaultTableModel) score_table.getModel();
+        score_table.setRowHeight(30);
+        score_table.setShowGrid(true);
+        score_table.setGridColor(Color.black);
+        score_table.setBackground(Color.white);
+    }
 
     private void clearStudent(){
         mssv_textField_student.setText(String.valueOf(studentDao.getMax()));
         nameStudent_textField_student.setText(null);
         dayofBirth_jdatechooser_student.setDate(null);
-        gender_comboBox_student.setSelectedIndex(0);
+        gender_comboBox_student.setSelectedIndex(-1);
         email_textField_student.setText(null);
         phoneNumber_textField_student.setText(null);
         nameFather_textField_student.setText(null);
@@ -66,6 +106,32 @@ public class Home extends JFrame {
         imagePath = null;
     }
 
+    public void clearCourse(){
+        id_textField_course.setText(String.valueOf(courseDao.getMax()));
+        mssv_textField_course.setText(null);
+        semester_comboBox_course.removeAllItems();
+        course1_comboBox_course.setSelectedIndex(0);
+        course2_comboBox_course.setSelectedIndex(0);
+        course3_comboBox_course.setSelectedIndex(0);
+        course4_comboBox_course.setSelectedIndex(0);
+        course5_comboBox_course.setSelectedIndex(0);
+    }
+    
+    public void clearScore(){
+        id_texField_score.setText(String.valueOf(scoreDao.getMax()));
+        mssv_textField_score.setText(null);
+        semester_textField_score.setText(null);
+        course1_textField_score.setText(null);
+        course2_textField_score.setText(null);
+        course3_textField_score.setText(null);
+        course4_textField_score.setText(null);
+        course5_textField_score.setText(null);
+        score1_textField_score.setText("0.0");
+        score2_textField_score.setText("0.0");
+        score3_textField_score.setText("0.0");
+        score4_textField_score.setText("0.0");
+        score5_textField_score.setText("0.0");
+    }
 
 
     public boolean isEmptyStudent(){
@@ -286,9 +352,15 @@ public class Home extends JFrame {
         if(search_textField_student.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Please enter student id");
         }else{
-            student_table.setModel( new DefaultTableModel(null , new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
-                    "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
-            studentDao.getStudentValue(student_table,search_textField_student.getText());
+            if(!studentDao.isStudentInfoExist(search_textField_student.getText())){
+                student_table.setModel( new DefaultTableModel(null , new Object[]{"MSSV","Họ và tên","Ngày sinh","Giới tính","Email","SĐT",
+                        "Họ và tên Ba","Họ và tên Mẹ","Quê quán","Chỗ ở hiện tại","Image Path"}));
+                studentDao.getStudentValue(student_table,"");
+            }else {
+                student_table.setModel(new DefaultTableModel(null, new Object[]{"MSSV", "Họ và tên", "Ngày sinh", "Giới tính", "Email", "SĐT",
+                        "Họ và tên Ba", "Họ và tên Mẹ", "Quê quán", "Chỗ ở hiện tại", "Image Path"}));
+                studentDao.getStudentValue(student_table, search_textField_student.getText());
+            }
         }
     }
 
@@ -363,7 +435,265 @@ public class Home extends JFrame {
         return false;
     }
 
+    
+    //                                   COURSE CODE
 
+    private void clearBtn_course(ActionEvent e) {
+        clearCourse();
+    }
+
+
+    private void searchInfBtn(ActionEvent e) {
+        if(mssv_textField_searchInf.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter a student id ");
+        }else{
+            int id = Integer.parseInt(mssv_textField_searchInf.getText());
+            Course course = new Course();
+            course.setStudentID(id);
+            if(courseDao.getId(course)){
+                semester_comboBox_course.removeAllItems();
+                int semester = courseDao.countSemester(course);
+                if(semester >= 0){
+                    for(int i = 1 ; i <= semester+1 ; i++){
+                        String count = String.valueOf(i);
+                        semester_comboBox_course.addItem(count);
+                    }
+                }
+            }
+        }
+    }
+    
+    private void saveBtn_course(ActionEvent e) {
+        if(mssv_textField_course.getText().isEmpty() || semester_comboBox_course.getItemCount() == 0){
+            JOptionPane.showMessageDialog(this,"Student id or semester number is missing ");
+        }else{
+            int id = courseDao.getMax();
+            int studentId = Integer.parseInt(mssv_textField_course.getText());
+            String semester = semester_comboBox_course.getSelectedItem().toString();
+            String course1 = course1_comboBox_course.getSelectedItem().toString();
+            String course2 = course2_comboBox_course.getSelectedItem().toString();
+            String course3 = course3_comboBox_course.getSelectedItem().toString();
+            String course4 = course4_comboBox_course.getSelectedItem().toString();
+            String course5 = course5_comboBox_course.getSelectedItem().toString();
+
+            Course  course = new Course(id,studentId,semester,course1, course2, course3, course4, course5);
+
+            if(courseDao.isSemesterExist(course.getStudentID(), semester)){
+                int confirm = JOptionPane.showConfirmDialog(this, "This student has already taken semester \n" + course.getSemester() +
+                        " Do you want to save ? ", "Note", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    courseDao.updateCourse(course);
+                    clearCourse();
+                    course_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Môn học 2", "Môn học 3"
+                            , "Môn học 4", "Môn học 5"}));
+
+                    courseDao.getCourseValue(course_table, "");
+                }
+            }else{
+                if(courseDao.isCourseExist(course,"course1",course.getCourse1())){
+                    JOptionPane.showMessageDialog(this,"This student has already taken "+ course.getCourse1() +" course");
+                }else{
+                    if(courseDao.isCourseExist(course,"course2",course.getCourse2())){
+                        JOptionPane.showMessageDialog(this,"This student has already taken "+ course.getCourse2()+ "course" );
+                    }else{
+                        if(courseDao.isCourseExist(course,"course3",course.getCourse3())){
+                            JOptionPane.showMessageDialog(this,"This student has already taken "+ course.getCourse3() +" course");
+                        }else{
+                            if(courseDao.isCourseExist(course,"course4",course.getCourse4())){
+                                JOptionPane.showMessageDialog(this,"This student has already taken "+ course.getCourse4() +" course");
+                            }else{
+                                if(courseDao.isCourseExist(course,"course5",course.getCourse5())){
+                                    JOptionPane.showMessageDialog(this,"This student has already taken "+ course.getCourse5() +" course");
+                                }else{
+                                    courseDao.insertCourse(course);
+                                    clearCourse();
+                                    course_table.setModel( new DefaultTableModel(null , new Object[]{"ID","MSSV","Học Kì","Môn học 1","Môn học 2","Môn học 3"
+                                    ,"Môn học 4","Môn học 5"}));
+
+                                    courseDao.getCourseValue(course_table,"");
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void printBtn_course(ActionEvent e) {
+        try {
+            MessageFormat header = new MessageFormat("Course information");
+            MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+            student_table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (PrinterException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void searchBtn_course(ActionEvent e) {
+        if(search_textField_course.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter mssv of student !!");
+        }else{
+            if(!courseDao.isCourseInfoExist(search_textField_course.getText())){
+                course_table.setModel( new DefaultTableModel(null , new Object[]{"ID","MSSV","Học Kì","Môn học 1","Môn học 2","Môn học 3"
+                        ,"Môn học 4","Môn học 5"}));
+
+                courseDao.getCourseValue(course_table,"");
+            }else{
+                course_table.setModel( new DefaultTableModel(null , new Object[]{"ID","MSSV","Học Kì","Môn học 1","Môn học 2","Môn học 3"
+                        ,"Môn học 4","Môn học 5"}));
+
+                courseDao.getCourseValue(course_table,search_textField_course.getText());
+            }
+
+        }
+    }
+
+    private void refreshBtn_course(ActionEvent e) {
+        search_textField_course.setText(null);
+        course_table.setModel( new DefaultTableModel(null , new Object[]{"ID","MSSV","Học Kì","Môn học 1","Môn học 2","Môn học 3"
+                ,"Môn học 4","Môn học 5"}));
+
+        courseDao.getCourseValue(course_table,"");
+    }
+
+    
+    //                            SCORE CODE
+
+
+    private void clearBtn_score(ActionEvent e) {
+        clearScore();
+    }
+
+    private void searchBtn_searchInf_score(ActionEvent e) {
+        Score score = new Score();
+
+        if(mssvSearchInf_textField_score.getText().isEmpty() || semesterSearchInf_textField_score.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter missing information ! ");
+        }else{
+            score.setStudentID(Integer.parseInt(mssvSearchInf_textField_score.getText()));
+            score.setSemester(semesterSearchInf_textField_score.getText());
+            scoreDao.getDetail(score);
+        }
+    }
+
+    private void saveBtn_score(ActionEvent e) {
+        if (score1_textField_score.getText().isEmpty() || score2_textField_score.getText().isEmpty() || score3_textField_score.getText().isEmpty()
+                || score4_textField_score.getText().isEmpty() || score5_textField_score.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Score is missing ");
+        } else {
+            int id = scoreDao.getMax();
+            int studentId = Integer.parseInt(mssv_textField_score.getText());
+            String semester = semester_textField_score.getText();
+            String course1 = course1_textField_score.getText();
+            String course2 = course2_textField_score.getText();
+            String course3 = course3_textField_score.getText();
+            String course4 = course4_textField_score.getText();
+            String course5 = course5_textField_score.getText();
+            Double score1 = Double.parseDouble(score1_textField_score.getText());
+            Double score2 = Double.parseDouble(score2_textField_score.getText());
+            Double score3 = Double.parseDouble(score3_textField_score.getText());
+            Double score4 = Double.parseDouble(score4_textField_score.getText());
+            Double score5 = Double.parseDouble(score5_textField_score.getText());
+
+            Score score = new Score(id, studentId, semester, course1, course2, course3, course4, course5, score1, score2, score3, score4, score5);
+            if (scoreDao.isSemesterExist(score)) {
+                JOptionPane.showMessageDialog(this, "This Semester already exists ");
+            } else {
+                scoreDao.insertScore(score);
+                clearScore();
+                score_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Điểm 1", "Môn học 2", "Điểm 2", "Môn học 3"
+                        , "Điểm 3", "Môn học 4", "Điểm 4", "Môn học 5", "Điểm 5"}));
+
+                scoreDao.getScoreValue(score_table, "");
+
+            }
+
+        }
+    }
+
+    private void score_tableMouseClicked(MouseEvent e) {
+        DefaultTableModel model = (DefaultTableModel) score_table.getModel();
+        rowIndex = score_table.getSelectedRow();
+
+        id_texField_score.setText(model.getValueAt(rowIndex,0).toString());
+        mssv_textField_score.setText(model.getValueAt(rowIndex,1).toString());
+        semester_textField_score.setText(model.getValueAt(rowIndex,2).toString());
+        course1_textField_score.setText(model.getValueAt(rowIndex,3).toString());
+        score1_textField_score.setText(model.getValueAt(rowIndex,4).toString());
+        course2_textField_score.setText(model.getValueAt(rowIndex,5).toString());
+        score2_textField_score.setText(model.getValueAt(rowIndex,6).toString());
+        course3_textField_score.setText(model.getValueAt(rowIndex,7).toString());
+        score3_textField_score.setText(model.getValueAt(rowIndex,8).toString());
+        course4_textField_score.setText(model.getValueAt(rowIndex,9).toString());
+        score4_textField_score.setText(model.getValueAt(rowIndex,10).toString());
+        course5_textField_score.setText(model.getValueAt(rowIndex,11).toString());
+        score5_textField_score.setText(model.getValueAt(rowIndex,12).toString());
+    }
+
+    private void updateBtn_score(ActionEvent e) {
+        int id = Integer.parseInt(id_texField_score.getText());
+        int studentId = Integer.parseInt(mssv_textField_score.getText());
+        String semester = semester_textField_score.getText();
+        String course1 = course1_textField_score.getText();
+        String course2 = course2_textField_score.getText();
+        String course3 = course3_textField_score.getText();
+        String course4 = course4_textField_score.getText();
+        String course5 = course5_textField_score.getText();
+        Double score1 = Double.parseDouble(score1_textField_score.getText());
+        Double score2 = Double.parseDouble(score2_textField_score.getText());
+        Double score3 = Double.parseDouble(score3_textField_score.getText());
+        Double score4 = Double.parseDouble(score4_textField_score.getText());
+        Double score5 = Double.parseDouble(score5_textField_score.getText());
+
+        Score score = new Score(id, studentId, semester, course1, course2, course3, course4, course5, score1, score2, score3, score4, score5);
+        scoreDao.updateScore(score);
+        clearScore();
+        score_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Điểm 1", "Môn học 2", "Điểm 2", "Môn học 3"
+                , "Điểm 3", "Môn học 4", "Điểm 4", "Môn học 5", "Điểm 5"}));
+
+        scoreDao.getScoreValue(score_table, "");
+    }
+
+
+    private void printBtn_score(ActionEvent e) {
+        try {
+            MessageFormat header = new MessageFormat("SCORE COURSE OF STUDENT");
+            MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+            student_table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (PrinterException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void searchBtn_score(ActionEvent e) {
+        if(search_textField_score.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter mssv of student");
+        }else{
+            if(!scoreDao.isScoreInfoExist(search_textField_score.getText())) {
+                score_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Điểm 1", "Môn học 2", "Điểm 2", "Môn học 3"
+                        , "Điểm 3", "Môn học 4", "Điểm 4", "Môn học 5", "Điểm 5"}));
+                scoreDao.getScoreValue(score_table,"");
+            }else{
+                String searchValue = search_textField_score.getText();
+                score_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Điểm 1", "Môn học 2", "Điểm 2", "Môn học 3"
+                        , "Điểm 3", "Môn học 4", "Điểm 4", "Môn học 5", "Điểm 5"}));
+                scoreDao.getScoreValue(score_table, searchValue);
+            }
+        }
+    }
+
+    private void refreshBtn_score(ActionEvent e) {
+        search_textField_score.setText(null);
+        score_table.setModel(new DefaultTableModel(null, new Object[]{"ID", "MSSV", "Học Kì", "Môn học 1", "Điểm 1", "Môn học 2", "Điểm 2", "Môn học 3"
+                , "Điểm 3", "Môn học 4", "Điểm 4", "Môn học 5", "Điểm 5"}));
+        scoreDao.getScoreValue(score_table, "");
+    }
+
+
+    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Nguyễn Huy
@@ -443,7 +773,7 @@ public class Home extends JFrame {
         refreshBtn_course = new JButton();
         table_panel_course = new JPanel();
         scrollPane2 = new JScrollPane();
-        table2 = new JTable();
+        course_table = new JTable();
         btnGroup_course = new JPanel();
         saveBtn_course = new JButton();
         printBtn_course = new JButton();
@@ -486,7 +816,7 @@ public class Home extends JFrame {
         refreshBtn_score = new JButton();
         tablePanel_score = new JPanel();
         scrollPane3 = new JScrollPane();
-        table3 = new JTable();
+        score_table = new JTable();
         btnGroup_score = new JPanel();
         updateBtn_score = new JButton();
         printBtn_score = new JButton();
@@ -523,12 +853,11 @@ public class Home extends JFrame {
         {
             headerPanel.setBackground(Color.white);
             headerPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-            headerPanel.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax
-            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,
-            12 ), java. awt. Color. red) ,headerPanel. getBorder( )) ); headerPanel. addPropertyChangeListener (new java. beans
-            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .
-            getPropertyName () )) throw new RuntimeException( ); }} );
+            headerPanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0
+            ,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM
+            ,new java.awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt.Color.red),
+            headerPanel. getBorder()));headerPanel. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
+            ){if("borde\u0072".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             //======== headerTextPanel ========
             {
@@ -602,12 +931,14 @@ public class Home extends JFrame {
                     Information.setBorder(new LineBorder(Color.darkGray, 4, true));
                     Information.setBackground(Color.white);
                     Information.setForeground(new Color(0xcccccc));
+                    Information.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
                     //---- mssv_textField_student ----
                     mssv_textField_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
                     mssv_textField_student.setEditable(false);
                     mssv_textField_student.setDisabledTextColor(new Color(0x999999));
                     mssv_textField_student.setToolTipText("Enter number here !");
+                    mssv_textField_student.setBackground(new Color(0x999999));
 
                     //---- nameStudent_textField_student ----
                     nameStudent_textField_student.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -1068,6 +1399,7 @@ public class Home extends JFrame {
                         //---- searchInfBtn ----
                         searchInfBtn.setText("Search");
                         searchInfBtn.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        searchInfBtn.addActionListener(e -> searchInfBtn(e));
 
                         GroupLayout search_Infro_panelLayout = new GroupLayout(search_Infro_panel);
                         search_Infro_panel.setLayout(search_Infro_panelLayout);
@@ -1134,9 +1466,12 @@ public class Home extends JFrame {
 
                     //---- id_textField_course ----
                     id_textField_course.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    id_textField_course.setBackground(new Color(0x999999));
 
                     //---- mssv_textField_course ----
                     mssv_textField_course.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    mssv_textField_course.setBackground(new Color(0x999999));
+                    mssv_textField_course.setEditable(false);
 
                     //---- semester_comboBox_course ----
                     semester_comboBox_course.setModel(new DefaultComboBoxModel<>(new String[] {
@@ -1313,10 +1648,12 @@ public class Home extends JFrame {
                         //---- searchBtn_course ----
                         searchBtn_course.setText("Search");
                         searchBtn_course.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        searchBtn_course.addActionListener(e -> searchBtn_course(e));
 
                         //---- refreshBtn_course ----
                         refreshBtn_course.setText("Refresh");
                         refreshBtn_course.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        refreshBtn_course.addActionListener(e -> refreshBtn_course(e));
 
                         GroupLayout search_panel_courseLayout = new GroupLayout(search_panel_course);
                         search_panel_course.setLayout(search_panel_courseLayout);
@@ -1353,18 +1690,16 @@ public class Home extends JFrame {
                         //======== scrollPane2 ========
                         {
 
-                            //---- table2 ----
-                            table2.setModel(new DefaultTableModel(
+                            //---- course_table ----
+                            course_table.setModel(new DefaultTableModel(
                                 new Object[][] {
-                                    {null, null, null, null, null, null, null, null},
-                                    {null, null, null, null, null, null, null, null},
                                 },
                                 new String[] {
                                     "ID", "MSSV", "H\u1ecdc k\u00ec", "M\u00f4n h\u1ecdc 1 ", "M\u00f4n h\u1ecdc 2", "M\u00f4n h\u1ecdc 3", "M\u00f4n h\u1ecdc 4", "M\u00f4n h\u1ecdc 5"
                                 }
                             ));
-                            table2.setBackground(Color.lightGray);
-                            scrollPane2.setViewportView(table2);
+                            course_table.setBackground(Color.lightGray);
+                            scrollPane2.setViewportView(course_table);
                         }
 
                         //======== btnGroup_course ========
@@ -1374,14 +1709,17 @@ public class Home extends JFrame {
                             //---- saveBtn_course ----
                             saveBtn_course.setText("Save");
                             saveBtn_course.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            saveBtn_course.addActionListener(e -> saveBtn_course(e));
 
                             //---- printBtn_course ----
                             printBtn_course.setText("Print");
                             printBtn_course.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            printBtn_course.addActionListener(e -> printBtn_course(e));
 
                             //---- clearBtn_course ----
                             clearBtn_course.setText("Clear");
                             clearBtn_course.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            clearBtn_course.addActionListener(e -> clearBtn_course(e));
 
                             //---- logoutBtn_course ----
                             logoutBtn_course.setText("Logout");
@@ -1511,6 +1849,7 @@ public class Home extends JFrame {
                         //---- searchBtn_searchInf_score ----
                         searchBtn_searchInf_score.setText("Search");
                         searchBtn_searchInf_score.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        searchBtn_searchInf_score.addActionListener(e -> searchBtn_searchInf_score(e));
 
                         //---- semesterSearchInf_label_score ----
                         semesterSearchInf_label_score.setText("H\u1ecdc k\u00ec ");
@@ -1539,7 +1878,7 @@ public class Home extends JFrame {
                                                 .addGroup(searchInf_scoreLayout.createSequentialGroup()
                                                     .addGap(25, 25, 25)
                                                     .addComponent(mssvSearchInf_textField_score, GroupLayout.PREFERRED_SIZE, 297, GroupLayout.PREFERRED_SIZE)))
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(searchBtn_searchInf_score, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
                                             .addGap(22, 22, 22))))
                         );
@@ -1598,27 +1937,43 @@ public class Home extends JFrame {
 
                     //---- id_texField_score ----
                     id_texField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    id_texField_score.setEditable(false);
+                    id_texField_score.setBackground(new Color(0x999999));
 
                     //---- mssv_textField_score ----
-                    mssv_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    mssv_textField_score.setFont(new Font("Times New Roman", Font.ITALIC, 14));
+                    mssv_textField_score.setBackground(new Color(0x999999));
+                    mssv_textField_score.setEditable(false);
 
                     //---- semester_textField_score ----
                     semester_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    semester_textField_score.setEditable(false);
+                    semester_textField_score.setBackground(new Color(0x999999));
 
                     //---- course1_textField_score ----
                     course1_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    course1_textField_score.setEditable(false);
+                    course1_textField_score.setBackground(new Color(0x999999));
 
                     //---- course2_textField_score ----
                     course2_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    course2_textField_score.setEditable(false);
+                    course2_textField_score.setBackground(new Color(0x999999));
 
                     //---- course3_textField_score ----
                     course3_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    course3_textField_score.setEditable(false);
+                    course3_textField_score.setBackground(new Color(0x999999));
 
                     //---- course4_textField_score ----
                     course4_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    course4_textField_score.setEditable(false);
+                    course4_textField_score.setBackground(new Color(0x999999));
 
                     //---- course5_textField_score ----
                     course5_textField_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    course5_textField_score.setEditable(false);
+                    course5_textField_score.setBackground(new Color(0x999999));
 
                     //---- score1_textField_score ----
                     score1_textField_score.setText("0.0");
@@ -1653,11 +2008,14 @@ public class Home extends JFrame {
                                 .addContainerGap()
                                 .addGroup(information_scoreLayout.createParallelGroup()
                                     .addGroup(information_scoreLayout.createSequentialGroup()
-                                        .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(searchInf_score, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap())
+                                    .addGroup(information_scoreLayout.createSequentialGroup()
+                                        .addGroup(information_scoreLayout.createParallelGroup()
                                             .addGroup(information_scoreLayout.createSequentialGroup()
                                                 .addComponent(id_label_score, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(49, 49, 49)
-                                                .addComponent(id_texField_score, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(id_texField_score, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
                                             .addGroup(GroupLayout.Alignment.TRAILING, information_scoreLayout.createSequentialGroup()
                                                 .addGroup(information_scoreLayout.createParallelGroup()
                                                     .addComponent(mssv_label_score, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
@@ -1667,36 +2025,23 @@ public class Home extends JFrame {
                                                     .addComponent(course3_label_score, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(course4_label_score, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(course5_label_score, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(mssv_textField_score, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                                                    .addComponent(semester_textField_score, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                                                    .addGroup(information_scoreLayout.createSequentialGroup()
-                                                        .addComponent(course1_textField_score, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(score1_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(information_scoreLayout.createSequentialGroup()
-                                                        .addGroup(information_scoreLayout.createParallelGroup()
-                                                            .addGroup(information_scoreLayout.createSequentialGroup()
-                                                                .addGroup(information_scoreLayout.createParallelGroup()
-                                                                    .addComponent(course4_textField_score)
-                                                                    .addGroup(information_scoreLayout.createSequentialGroup()
-                                                                        .addGroup(information_scoreLayout.createParallelGroup()
-                                                                            .addComponent(course2_textField_score, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-                                                                            .addComponent(course3_textField_score, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-                                                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
-                                                            .addGroup(information_scoreLayout.createSequentialGroup()
-                                                                .addComponent(course5_textField_score, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)))
-                                                        .addGroup(information_scoreLayout.createParallelGroup()
-                                                            .addComponent(score2_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(score3_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(score4_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(score5_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))))
-                                        .addGap(0, 114, Short.MAX_VALUE))
-                                    .addComponent(searchInf_score, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
+                                                    .addComponent(mssv_textField_score, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                                    .addComponent(semester_textField_score)
+                                                    .addComponent(course4_textField_score)
+                                                    .addComponent(course1_textField_score)
+                                                    .addComponent(course2_textField_score)
+                                                    .addComponent(course3_textField_score)
+                                                    .addComponent(course5_textField_score))))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(information_scoreLayout.createParallelGroup()
+                                            .addComponent(score1_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(score2_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(score3_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(score4_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(score5_textField_score, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(53, 53, 53))))
                     );
                     information_scoreLayout.setVerticalGroup(
                         information_scoreLayout.createParallelGroup()
@@ -1718,8 +2063,8 @@ public class Home extends JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(course1_label_score, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(course1_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(score1_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(score1_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(course1_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(information_scoreLayout.createParallelGroup()
                                     .addGroup(information_scoreLayout.createSequentialGroup()
@@ -1728,8 +2073,8 @@ public class Home extends JFrame {
                                             .addComponent(course2_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                            .addComponent(course3_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(score3_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(score3_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(course3_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(information_scoreLayout.createSequentialGroup()
                                         .addComponent(course2_label_score, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -1737,15 +2082,16 @@ public class Home extends JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(information_scoreLayout.createParallelGroup()
                                     .addComponent(course4_label_score, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(score4_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(course4_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(course4_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(score4_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(information_scoreLayout.createParallelGroup()
                                     .addGroup(information_scoreLayout.createSequentialGroup()
                                         .addGap(17, 17, 17)
                                         .addComponent(course5_label_score, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(information_scoreLayout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addGroup(information_scoreLayout.createParallelGroup()
+                                        .addGroup(information_scoreLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                             .addComponent(score5_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                             .addComponent(course5_textField_score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(108, Short.MAX_VALUE))
@@ -1771,10 +2117,12 @@ public class Home extends JFrame {
                         //---- searchBtn_score ----
                         searchBtn_score.setText("Search");
                         searchBtn_score.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        searchBtn_score.addActionListener(e -> searchBtn_score(e));
 
                         //---- refreshBtn_score ----
                         refreshBtn_score.setText("Refresh");
                         refreshBtn_score.setFont(new Font("Times New Roman", Font.BOLD, 14));
+                        refreshBtn_score.addActionListener(e -> refreshBtn_score(e));
 
                         GroupLayout searchPanel_scoreLayout = new GroupLayout(searchPanel_score);
                         searchPanel_score.setLayout(searchPanel_scoreLayout);
@@ -1811,19 +2159,23 @@ public class Home extends JFrame {
                         //======== scrollPane3 ========
                         {
 
-                            //---- table3 ----
-                            table3.setModel(new DefaultTableModel(
+                            //---- score_table ----
+                            score_table.setModel(new DefaultTableModel(
                                 new Object[][] {
-                                    {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                                    {null, null, null, null, null, null, null, null, null, null, null, null, null},
                                 },
                                 new String[] {
                                     "ID", "MSSV", "H\u1ecdc k\u00ec", "M\u00f4n h\u1ecdc 1 ", "\u0110i\u1ec3m 1", "M\u00f4n h\u1ecdc 2", "\u0110i\u1ec3m 2", "M\u00f4n h\u1ecdc 3", "\u0110i\u1ec3m 3", "M\u00f4n h\u1ecdc 4", "\u0110i\u1ec3m 4", "M\u00f4n h\u1ecdc 5", "\u0110i\u1ec3m 5"
                                 }
                             ));
-                            table3.setBackground(Color.lightGray);
-                            table3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-                            scrollPane3.setViewportView(table3);
+                            score_table.setBackground(Color.lightGray);
+                            score_table.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            score_table.addMouseListener(new MouseAdapter() {
+                                @Override
+                                public void mouseClicked(MouseEvent e) {
+                                    score_tableMouseClicked(e);
+                                }
+                            });
+                            scrollPane3.setViewportView(score_table);
                         }
 
                         //======== btnGroup_score ========
@@ -1833,13 +2185,16 @@ public class Home extends JFrame {
                             //---- updateBtn_score ----
                             updateBtn_score.setText("Update");
                             updateBtn_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            updateBtn_score.addActionListener(e -> updateBtn_score(e));
 
                             //---- printBtn_score ----
                             printBtn_score.setText("Print");
+                            printBtn_score.addActionListener(e -> printBtn_score(e));
 
                             //---- clearBtn_score ----
                             clearBtn_score.setText("Clear");
                             clearBtn_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            clearBtn_score.addActionListener(e -> clearBtn_score(e));
 
                             //---- logoutBtn_score ----
                             logoutBtn_score.setText("Logout");
@@ -1849,6 +2204,7 @@ public class Home extends JFrame {
                             //---- saveBtn_score ----
                             saveBtn_score.setText("Save");
                             saveBtn_score.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                            saveBtn_score.addActionListener(e -> saveBtn_score(e));
 
                             GroupLayout btnGroup_scoreLayout = new GroupLayout(btnGroup_score);
                             btnGroup_scoreLayout.setHonorsVisibility(false);
@@ -1933,7 +2289,7 @@ public class Home extends JFrame {
                     ScoreLayout.createParallelGroup()
                         .addGroup(ScoreLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(information_score, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(information_score, GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                             .addGap(12, 12, 12)
                             .addComponent(contentPanel_score, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addContainerGap())
@@ -2066,8 +2422,6 @@ public class Home extends JFrame {
                             //---- table4 ----
                             table4.setModel(new DefaultTableModel(
                                 new Object[][] {
-                                    {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                                    {null, null, null, null, null, null, null, null, null, null, null, null, null},
                                 },
                                 new String[] {
                                     "ID", "MSSV", "H\u1ecdc k\u00ec", "M\u00f4n h\u1ecdc 1 ", "\u0110i\u1ec3m 1", "M\u00f4n h\u1ecdc 2", "\u0110i\u1ec3m 2", "M\u00f4n h\u1ecdc 3", "\u0110i\u1ec3m 3", "M\u00f4n h\u1ecdc 4", "\u0110i\u1ec3m 4", "M\u00f4n h\u1ecdc 5", "\u0110i\u1ec3m 5"
@@ -2219,6 +2573,8 @@ public class Home extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
+
+
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner Evaluation license - Nguyễn Huy
     private JPanel headerPanel;
@@ -2227,7 +2583,7 @@ public class Home extends JFrame {
     private JTabbedPane tabbedPane1;
     private JPanel student;
     private JPanel Information;
-    private JTextField mssv_textField_student;
+    public static JTextField mssv_textField_student;
     private JTextField nameStudent_textField_student;
     private JComboBox<String> gender_comboBox_student;
     private JTextField email_textField_student;
@@ -2281,8 +2637,8 @@ public class Home extends JFrame {
     private JLabel course3_label_course;
     private JLabel course4_label_course;
     private JLabel course5_label_course;
-    private JTextField id_textField_course;
-    private JTextField mssv_textField_course;
+    public static JTextField id_textField_course;
+    public static JTextField mssv_textField_course;
     private JComboBox<String> semester_comboBox_course;
     private JComboBox<String> course1_comboBox_course;
     private JComboBox<String> course2_comboBox_course;
@@ -2297,7 +2653,7 @@ public class Home extends JFrame {
     private JButton refreshBtn_course;
     private JPanel table_panel_course;
     private JScrollPane scrollPane2;
-    private JTable table2;
+    private JTable course_table;
     private JPanel btnGroup_course;
     private JButton saveBtn_course;
     private JButton printBtn_course;
@@ -2319,14 +2675,14 @@ public class Home extends JFrame {
     private JLabel course3_label_score;
     private JLabel course4_label_score;
     private JLabel course5_label_score;
-    private JTextField id_texField_score;
-    private JTextField mssv_textField_score;
-    private JTextField semester_textField_score;
-    private JTextField course1_textField_score;
-    private JTextField course2_textField_score;
-    private JTextField course3_textField_score;
-    private JTextField course4_textField_score;
-    private JTextField course5_textField_score;
+    public static JTextField id_texField_score;
+    public static JTextField mssv_textField_score;
+    public static JTextField semester_textField_score;
+    public static JTextField course1_textField_score;
+    public static JTextField course2_textField_score;
+    public static JTextField course3_textField_score;
+    public static JTextField course4_textField_score;
+    public static JTextField course5_textField_score;
     private JTextField score1_textField_score;
     private JTextField score2_textField_score;
     private JTextField score3_textField_score;
@@ -2340,7 +2696,7 @@ public class Home extends JFrame {
     private JButton refreshBtn_score;
     private JPanel tablePanel_score;
     private JScrollPane scrollPane3;
-    private JTable table3;
+    private JTable score_table;
     private JPanel btnGroup_score;
     private JButton updateBtn_score;
     private JButton printBtn_score;
@@ -2367,3 +2723,4 @@ public class Home extends JFrame {
     private JButton saveBtn_marksSheet;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
+   

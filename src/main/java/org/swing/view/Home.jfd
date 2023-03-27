@@ -56,12 +56,17 @@ new FormModel {
 						"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color darkGray, 4, true )
 						"background": &Color1 new java.awt.Color( 255, 255, 255, 255 )
 						"foreground": &Color2 new java.awt.Color( 204, 204, 204, 255 )
+						"font": new java.awt.Font( "Times New Roman", 0, 14 )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "mssv_textField_student"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
 							"editable": false
 							"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
 							"toolTipText": "Enter number here !"
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "nameStudent_textField_student"
@@ -368,6 +373,7 @@ new FormModel {
 								name: "searchInfBtn"
 								"text": "Search"
 								"font": &Font4 new java.awt.Font( "Times New Roman", 1, 14 )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchInfBtn", true ) )
 							} )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -413,10 +419,19 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "id_textField_course"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "mssv_textField_course"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							"editable": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JComboBox" ) {
 							name: "semester_comboBox_course"
@@ -527,11 +542,13 @@ new FormModel {
 								name: "searchBtn_course"
 								"text": "Search"
 								"font": #Font1
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchBtn_course", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "refreshBtn_course"
 								"text": "Refresh"
 								"font": #Font2
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "refreshBtn_course", true ) )
 							} )
 						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -544,29 +561,8 @@ new FormModel {
 							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 								name: "scrollPane2"
 								add( new FormComponent( "javax.swing.JTable" ) {
-									name: "table2"
-									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-									}, new java.util.Vector {
+									name: "course_table"
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
 										add( "ID" )
 										add( "MSSV" )
 										add( "Học kì" )
@@ -617,16 +613,19 @@ new FormModel {
 									name: "saveBtn_course"
 									"text": "Save"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveBtn_course", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "printBtn_course"
 									"text": "Print"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printBtn_course", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "clearBtn_course"
 									"text": "Clear"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearBtn_course", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "logoutBtn_course"
@@ -641,21 +640,21 @@ new FormModel {
 					"title": "Course"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :::p, comp information_score:::::x, space :p:12:p, comp contentPanel_score:::::p, space :::p}}"
+					"$horizontalGroup": "par l {seq l {space :::p, comp information_score::::515:x, space :p:12:p, comp contentPanel_score:::::p, space :::p}}"
 					"$verticalGroup": "par l {seq l {space :::p, par l {comp information_score:::::x, seq {space :0:0:x, comp contentPanel_score:::::p}}, space :::p}}"
 				} ) {
 					name: "Score"
 					"background": #Color0
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l:::p {seq l {comp id_label_score:::p:85:p, space :p:49:p, comp id_texField_score:::p:247:p}, seq t {par l {comp mssv_label_score::l:p:85:p, comp semester_label_score::l:p:85:p, comp course1_label_score::l:p:85:p, comp course2_label_score::l:p:85:p, comp course3_label_score::l:p:85:p, comp course4_label_score::l:p:85:p, comp course5_label_score::l:p:85:p}, space :::x, par l:::p {comp mssv_textField_score::::247:x, comp semester_textField_score::l::247:x, seq l {comp course1_textField_score:::p:145:p, space :::x, comp score1_textField_score:::p::p}, seq {par l {seq {par l {comp course4_textField_score::l:::x, seq {par l {comp course2_textField_score::l:p:145:p, comp course3_textField_score:::p:145:p}, space :0:0:x}}, space ::34:x}, seq {comp course5_textField_score:::p:145:p, space ::36:x}}, par l {comp score2_textField_score::t:p::p, comp score3_textField_score::t:p::p, comp score4_textField_score::t:p::p, comp score5_textField_score::t:p::p}}}}}, space :0:114:x}, comp searchInf_score:::::x}, space :::p}}"
-						"$verticalGroup": "par l {seq l {space :::p, comp searchInf_score:::p::p, space :::p, par b {comp id_label_score::b:p:25:p, comp id_texField_score::b:p::p}, space s:::p, par b {comp mssv_label_score::b:p:25:p, comp mssv_textField_score::b:p::p}, space s:::p, par b {comp semester_label_score::b:p:25:p, comp semester_textField_score::b:p::p}, space s:::p, par b {comp course1_label_score::b:p:25:p, comp course1_textField_score::b:p::p, comp score1_textField_score::b:p::p}, space s:::p, par l {seq l {par b {comp score2_textField_score::b:p::p, comp course2_textField_score::b:p::p}, space s:::p, par b {comp course3_textField_score::b:p::p, comp score3_textField_score::b:p::p}}, seq l {comp course2_label_score:::p:25:p, space s:::p, comp course3_label_score:::p:25:p}}, space s:::p, par l {comp course4_label_score::l:p:25:p, comp score4_textField_score:::p::p, comp course4_textField_score:::p::p}, par l {seq {space :p:17:p, comp course5_label_score:::p:25:p}, seq l {space s:::p, par l {comp score5_textField_score:::p::p, comp course5_textField_score:::p::p}}}, space ::108:x}}"
+						"$horizontalGroup": "par l {seq l {space :::p, par l {seq l {comp searchInf_score:::::x, space :::p}, seq l {par l {seq l {comp id_label_score:::p:85:p, space :::p, comp id_texField_score:::p:290:p}, seq t {par l {comp mssv_label_score::l:p:85:p, comp semester_label_score::l:p:85:p, comp course1_label_score::l:p:85:p, comp course2_label_score::l:p:85:p, comp course3_label_score::l:p:85:p, comp course4_label_score::l:p:85:p, comp course5_label_score::l:p:85:p}, space :::p, par l:::p {comp mssv_textField_score::::290:x, comp semester_textField_score::l:::x, comp course4_textField_score::l:::x, comp course1_textField_score::l:::x, comp course2_textField_score::l:::x, comp course3_textField_score:::::x, comp course5_textField_score::l:::x}}}, space :::x, par l {comp score1_textField_score::t:p::p, comp score2_textField_score::t:p::p, comp score3_textField_score::t:p::p, comp score4_textField_score::t:p::p, comp score5_textField_score::t:p::p}, space :p:53:p}}}}"
+						"$verticalGroup": "par l {seq l {space :::p, comp searchInf_score:::p::p, space :::p, par b {comp id_label_score::b:p:25:p, comp id_texField_score::b:p::p}, space s:::p, par b {comp mssv_label_score::b:p:25:p, comp mssv_textField_score::b:p::p}, space s:::p, par b {comp semester_label_score::b:p:25:p, comp semester_textField_score::b:p::p}, space s:::p, par b {comp course1_label_score::b:p:25:p, comp score1_textField_score::b:p::p, comp course1_textField_score::b:p::p}, space s:::p, par l {seq l {par b {comp score2_textField_score::b:p::p, comp course2_textField_score::b:p::p}, space s:::p, par b {comp score3_textField_score::b:p::p, comp course3_textField_score::b:p::p}}, seq l {comp course2_label_score:::p:25:p, space s:::p, comp course3_label_score:::p:25:p}}, space s:::p, par l {comp course4_label_score::l:p:25:p, par b {comp course4_textField_score::b:p::p, comp score4_textField_score::b:p::p}}, par l {seq {space :p:17:p, comp course5_label_score:::p:25:p}, seq l {space s:::p, par b {comp score5_textField_score::b:p::p, comp course5_textField_score::b:p::p}}}, space ::108:x}}"
 					} ) {
 						name: "information_score"
 						"border": #LineBorder0
 						"background": #Color1
 						"foreground": #Color2
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-							"$horizontalGroup": "par l {seq l {space :::p, par l {seq {comp mssvSearchInf_label_score:::p:127:p, space :::x}, seq l {par l {par l {comp semesterSearchInf_label_score::l:p:127:p, seq t {space :p:25:p, comp semesterSearchInf_textField_score:::p:297:p}}, seq l {space :p:25:p, comp mssvSearchInf_textField_score:::p:297:p}}, space ::46:x, comp searchBtn_searchInf_score:::p:91:p, space :p:22:p}}}}"
+							"$horizontalGroup": "par l {seq l {space :::p, par l {seq {comp mssvSearchInf_label_score:::p:127:p, space :::x}, seq l {par l {par l {comp semesterSearchInf_label_score::l:p:127:p, seq t {space :p:25:p, comp semesterSearchInf_textField_score:::p:297:p}}, seq l {space :p:25:p, comp mssvSearchInf_textField_score:::p:297:p}}, space :::x, comp searchBtn_searchInf_score:::p:91:p, space :p:22:p}}}}"
 							"$verticalGroup": "par l {seq t {space :::p, comp mssvSearchInf_label_score:::p:24:p, par l {seq {space :p:7:p, comp mssvSearchInf_textField_score:::p:26:p, space u:::p, comp semesterSearchInf_label_score:::p:25:p, space :::p, comp semesterSearchInf_textField_score:::p::p, space ::16:x}, seq t {space ::18:x, comp searchBtn_searchInf_score:::p:63:p, space :p:33:p}}}}"
 						} ) {
 							name: "searchInf_score"
@@ -673,6 +672,7 @@ new FormModel {
 								name: "searchBtn_searchInf_score"
 								"text": "Search"
 								"font": #Font4
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchBtn_searchInf_score", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "semesterSearchInf_label_score"
@@ -727,34 +727,74 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "id_texField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "mssv_textField_score"
-							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"font": new java.awt.Font( "Times New Roman", 2, 14 )
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							"editable": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "semester_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "course1_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "course2_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "course3_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "course4_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "course5_textField_score"
 							"font": new java.awt.Font( "Times New Roman", 0, 14 )
+							"editable": false
+							"background": new java.awt.Color( 153, 153, 153, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 9
+							}
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "score1_textField_score"
@@ -813,11 +853,13 @@ new FormModel {
 								name: "searchBtn_score"
 								"text": "Search"
 								"font": #Font1
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchBtn_score", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "refreshBtn_score"
 								"text": "Refresh"
 								"font": #Font2
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "refreshBtn_score", true ) )
 							} )
 						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -830,39 +872,8 @@ new FormModel {
 							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 								name: "scrollPane3"
 								add( new FormComponent( "javax.swing.JTable" ) {
-									name: "table3"
-									"model": &SwingTableModel0 new com.jformdesigner.model.SwingTableModel( new java.util.Vector {
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-										add( new java.util.Vector {
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-											add( null )
-										} )
-									}, new java.util.Vector {
+									name: "score_table"
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
 										add( "ID" )
 										add( "MSSV" )
 										add( "Học kì" )
@@ -921,6 +932,7 @@ new FormModel {
 									} )
 									"background": sfield java.awt.Color lightGray
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "score_tableMouseClicked", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -934,15 +946,18 @@ new FormModel {
 									name: "updateBtn_score"
 									"text": "Update"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "updateBtn_score", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "printBtn_score"
 									"text": "Print"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printBtn_score", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "clearBtn_score"
 									"text": "Clear"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearBtn_score", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "logoutBtn_score"
@@ -954,6 +969,7 @@ new FormModel {
 									name: "saveBtn_score"
 									"text": "Save"
 									"font": new java.awt.Font( "Times New Roman", 0, 14 )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveBtn_score", true ) )
 								} )
 							} )
 						} )
@@ -1028,7 +1044,63 @@ new FormModel {
 								name: "scrollPane4"
 								add( new FormComponent( "javax.swing.JTable" ) {
 									name: "table4"
-									"model": #SwingTableModel0
+									"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+										add( "ID" )
+										add( "MSSV" )
+										add( "Học kì" )
+										add( "Môn học 1 " )
+										add( "Điểm 1" )
+										add( "Môn học 2" )
+										add( "Điểm 2" )
+										add( "Môn học 3" )
+										add( "Điểm 3" )
+										add( "Môn học 4" )
+										add( "Điểm 4" )
+										add( "Môn học 5" )
+										add( "Điểm 5" )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									}, new java.util.Vector {
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+										add( null )
+									} )
 									"background": sfield java.awt.Color lightGray
 								} )
 							} )

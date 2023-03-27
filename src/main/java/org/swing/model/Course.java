@@ -3,7 +3,7 @@ package org.swing.model;
 public class Course {
     private int id;
     private int studentID;
-    private int semester;
+    private String semester;
     private String course1;
     private String course2;
     private String course3;
@@ -11,7 +11,7 @@ public class Course {
     private String course5;
 
     public Course(){}
-    public Course(int id, int studentID, int semester, String course1, String course2, String course3, String course4, String course5) {
+    public Course(int id, int studentID, String semester, String course1, String course2, String course3, String course4, String course5) {
         this.id = id;
         this.studentID = studentID;
         this.semester = semester;
@@ -38,11 +38,11 @@ public class Course {
         this.studentID = studentID;
     }
 
-    public int getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
@@ -85,4 +85,5 @@ public class Course {
     public void setCourse5(String course5) {
         this.course5 = course5;
     }
+
 }

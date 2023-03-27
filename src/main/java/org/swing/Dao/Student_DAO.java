@@ -144,7 +144,7 @@ public class Student_DAO {
     public void getStudentValue(JTable table, String searchValue){
         try {
             String sql = "SELECT * FROM Student WHERE deleted_at is null and " +
-                    "concat(id,name,email,phone) like ? " +
+                    " concat(id,name,email,phone) like ? " +
                     "   order by id asc ";
 
             Connection con = getConnection();
@@ -247,6 +247,28 @@ public class Student_DAO {
         } catch (SQLException e) {
             Logger.getLogger(Student_DAO.class.getName()).log(Level.SEVERE,null,e);
         }
+    }
+
+    public boolean isStudentInfoExist(String searchValue){
+
+        try {
+            Connection conn = myConnection.getConnection();
+
+            String sql = "SELECT * FROM Student WHERE concat(id,name,email,phone) LIKE ? ";
+
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1,"%"+searchValue+"%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(!resultSet.next()){
+                JOptionPane.showMessageDialog(null, "There are no information of student whose student id is "+ searchValue +" in data");
+                return false;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Score_DAO.class.getName()).log(Level.SEVERE,null,e);
+        }
+        return true;
     }
 
     public void exportFileExcel(){

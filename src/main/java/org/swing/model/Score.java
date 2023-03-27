@@ -3,7 +3,7 @@ package org.swing.model;
 public class Score {
     private int id;
     private int studentID;
-    private int semester;
+    private String semester;
     private String course1;
     private String course2;
     private String course3;
@@ -15,7 +15,7 @@ public class Score {
     private double score4;
     private double score5;
 
-    public Score(int id, int studentID, int semester, String course1, String course2, String course3, String course4, String course5
+    public Score(int id, int studentID, String semester, String course1, String course2, String course3, String course4, String course5
             , double score1, double score2, double score3, double score4, double score5) {
         this.id = id;
         this.studentID = studentID;
@@ -50,11 +50,11 @@ public class Score {
         this.studentID = studentID;
     }
 
-    public int getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
